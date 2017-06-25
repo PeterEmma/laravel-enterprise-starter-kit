@@ -177,7 +177,7 @@ class FilesController extends Controller {
         
         // create activity for sharing the folder
         $activity = new Activity;
-        $shareInput = Input::get('share-input');
+        $shareInput = $receiver_email;
         $activity->activity_by= Input::get('comment_by');
         $activity->folder_id= Input::get('fold_name');
         $activity->activity= Input::get('activity'). $shareInput;

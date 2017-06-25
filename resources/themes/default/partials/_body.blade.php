@@ -101,6 +101,4 @@ desired effect
     @endif
   @endif
 
-  
- 
 </body>

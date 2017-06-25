@@ -57,8 +57,8 @@ Route::get( 'home',       ['as' => 'home',        'uses' => 'HomeController@inde
 Route::get( 'welcome',    ['as' => 'welcome',     'uses' => 'HomeController@welcome']);
 Route::get( 'news/feed',  ['as' => 'feed',        'uses' => 'News\NewsController@newsfeed']);
 Route::get( 'news/stream',['as' => 'newsstream',  'uses' => 'News\NewsController@newsstream']);
-Route::get( 'fetch_notification',['as' => 'fetch_notification',  'uses' => 'FolderNotificationController@fetch']);
-Route::get( 'scandir',   ['as' => 'scan_dir',    'uses' => 'FileManagement\SearchFolderController@scandir']);
+
+
 
 
 // Custom routes to test feeds
@@ -77,6 +77,14 @@ Route::group(['middleware' => 'authorize'], function () {
 	Route::post(   'store_memo',      ['as' => 'store_memo',          'uses' => 'DashboardController@store_memo']);
     Route::get(   'user/profile',   ['as' => 'user.profile',       'uses' => 'UsersController@profile']);
     Route::patch( 'user/profile',   ['as' => 'user.profile.patch', 'uses' => 'UsersController@profileUpdate']);
+
+    //Notifications
+    Route::get( 'folder_notification',['as' => 'folder_notification',  'uses' => 'FolderNotificationController@fetch']);
+    Route::get( 'memo_notification',  ['as' => 'memo_notification',    'uses' => 'MemoNotificationController@fetch']);
+
+    Route::get( 'notif_seen', ['as' => 'notif_seen',  'uses' => 'FolderNotificationController@notificationseen']);
+    Route::get( 'memo_seen',  ['as' => 'memo_seen',   'uses' => 'MemoNotificationController@notificationseen']);
+    Route::get( 'scandir',    ['as' => 'scan_dir',    'uses' => 'FileManagement\SearchFolderController@scandir']);
     
     Route::get(   'user/profile/photo',   ['as' => 'user.profile.photo',       'uses' => 'UsersController@profilePhoto']);
     Route::patch( 'user/profile/photo',   ['as' => 'user.profile.photo.patch', 'uses' => 'UsersController@profilePhotoUpdate']);

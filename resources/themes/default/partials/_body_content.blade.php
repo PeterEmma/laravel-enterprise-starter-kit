@@ -39,7 +39,7 @@
         @include('partials._body_right_sidebar')
     @endif
 
-{{-- custom scripts go here. --}}
+{{-- custom scripts when user is authenticaated goes here. --}}
 @if(Auth::user())
     @include('partials._body_bottom_custom_file_ctrl_js')
 @endif

@@ -43,30 +43,42 @@
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
                             <!-- Menu toggle button -->
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="label label-success">4</span>
+                             <a href="#" id="memo_toggle" class="dropdown-toggle" data-toggle="dropdown">
+                                <i id="memo_notif_icon" class="fa fa-envelope-o"></i>
+                                <span id="memo_notif" class="label label-success"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 4 messages</li>
+                                <li class="header">Messages</li>
                                 <li>
                                     <!-- inner menu: contains the messages -->
                                     <ul class="menu">
-                                        <li><!-- start message -->
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <!-- User Image -->
-                                                    <img src="{{ asset("/bower_components/admin-lte/dist/img/generic_user_160x160.jpg") }}" class="img-circle" alt="User Image"/>
-                                                </div>
-                                                <!-- Message title and timestamp -->
-                                                <h4>
-                                                    Support Team
-                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                </h4>
-                                                <!-- The message -->
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
-                                        </li><!-- end message -->
+                                        <?php $useremail = Auth::user()->email; $memos = Illuminate\Support\Facades\DB::select('select * from memos where emailto = ? order by created_at desc limit 5', [$useremail]); ?>
+                                        @foreach($memos as $memo)
+                                            <li><!-- start message -->
+                                                <a href="#">
+                                                    <div class="pull-left">
+                                                        <!-- User Image -->
+                                                        <?php $user = Illuminate\Support\Facades\DB::table('users')->where('email', '=', 'root@email.com')->first();
+                                                        
+                                                        $temp = array();
+                                                        foreach($user as $field => $val ){
+                                                            $temp[$field] = $val;
+                                                        }
+                                                        
+                                                         $user_avatar = $temp['avatar']; $user_name = $temp['first_name'] . ', '.$temp['last_name']  ?>
+
+                                                        <img src="img/profile_picture/photo/{{$user_avatar}}" class="img-circle" alt="User Image"/>
+                                                    </div>
+                                                    <!-- Message title and timestamp -->
+                                                    <h4>
+                                                        {{ $user_name }}
+                                                        <small><i class="fa fa-clock-o"></i> {{ date('F d', strtotime($memo->created_at )) }} </small>
+                                                    </h4>
+                                                    <!-- The message -->
+                                                    <p>{{ $memo->subject}}</p>
+                                                </a>
+                                            </li><!-- end message -->                                                 
+                                        @endforeach 
                                     </ul><!-- /.menu -->
                                 </li>
                                 <li class="footer"><a href="#">See All Messages</a></li>
@@ -97,31 +109,32 @@
                         <!-- Tasks Menu -->
                         <li class="dropdown tasks-menu">
                             <!-- Menu Toggle Button -->
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-folder-open-o"></i><!-- @cpnwaugha:c-e -->
+                            <a href="" id="notif_toggle" class="dropdown-toggle" data-toggle="dropdown" >
+                                <i id="folder_notif_icon" class="fa fa-folder-open-o"></i><!-- @cpnwaugha:c-e -->
                                 <span id="folder_notif" class="label label-danger"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 9 tasks</li>
+                                <li class="header">Folders on Desk</li>
                                 <li>
                                     <!-- Inner menu: contains the tasks -->
-                                    <ul class="menu">
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <!-- Task title and progress text -->
-                                                <h3>
-                                                    Design some buttons
-                                                    <small class="pull-right">20%</small>
-                                                </h3>
-                                                <!-- The progress bar -->
-                                                <div class="progress xs">
-                                                    <!-- Change the css width attribute to simulate progress -->
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
+                                    <ul class="menu">                                        
+                                        <?php $usertoemail = Auth::user()->email; $query = "%to $usertoemail%";  $activity = Illuminate\Support\Facades\DB::select('select * from activities where activity like ? order by created_at desc limit 5', [$query]); ?>
+                                        
+                                        @foreach($activity as $activity_by)
+                                            @if($activity_by->activity_by == Auth::user()->email || Auth::user()->username)
+                                                <li> 
+                                                    <a href="#">                   
+                                                        <div class="xs">
+                                                            <small><b>{{ str_limit($activity_by->activity, 35) }}</b></small>
+                                                            <span><i class="fa fa-clock-o"></i>
+                                                                <small>{{ date('F d', strtotime($activity_by->created_at )) }}</small>
+                                                            </span>                                                        
+                                                        </div>
+                                                    </a>
+                                                </li>                                                 
+                                            @endif
+                                        @endforeach                                                                          
+                                        
                                     </ul>
                                 </li>
                                 <li class="footer">

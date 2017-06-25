@@ -41,6 +41,7 @@ use App\Comment;
 use App\Folder;
 use App\Activity;
 use App\Document;
+use App\MemoNotification;
 
 use Illuminate\Support\Facades\Input;
 
@@ -96,21 +97,49 @@ class DashboardController extends Controller
         $users = $this->user->pushCriteria(new UsersWithRoles())->pushCriteria(new UsersByUsernamesAscending())->paginate(10);
 		
 		$emailto = Input::get('emailto');
-		foreach($emailto as $key => $user_email){
+
+		foreach($emailto as $key => $user_name){
 			$memo = new memo;
 			$memo->email_name = Input::get('email_name');
 			$memo->emailfrom = Input::get('emailfrom');
-			$memo->emailto = $user_email;
+
+			// Create memonotification for each user.
+			$temp = preg_replace('/\s+/', '', $user_name);
+			$fullname_array = explode(',', $temp);
+			$first_name = $fullname_array[0];
+			$last_name  = $fullname_array[1];
+
+			$receiver_object = DB::select('select * from users where first_name=? and last_name=?', [$first_name, $last_name]);		
+			$temp_arr = array();
+			foreach($receiver_object as $key => $value){
+				foreach($value as $field => $data){
+					$temp_arr[$field] = $data;
+				}
+			}
+			$receiver_user = $temp_arr;  // receiver user. It's now easy to get the fields
+			
+			$receiver_email=  $receiver_user['email'];
+
+			$memo->emailto = $receiver_email;
 			$memo->subject = Input::get('subject');
 			$memo->message = Input::get('message');
 			$memo->save();
+
+
+			$memo_id = 1;
+			$sender_id = Auth::user()->id;
+			$receiver_id =  $receiver_user['id'];
+			
+			// create notification
+			MemoNotification::create(['memo_id'=>$memo_id, 'sender_id'=>$sender_id, 'receiver_id'=>$receiver_id]);
 		}
+
 		Flash::success('Email sent');
 		return redirect()->back()->with('Memo Sent');
     }
 
 
-	    public function viewall()
+	public function viewall()
     {
         Audit::log(Auth::user()->id, trans('admin/users/general.audit-log.category'), trans('admin/users/general.audit-log.msg-index'));
 

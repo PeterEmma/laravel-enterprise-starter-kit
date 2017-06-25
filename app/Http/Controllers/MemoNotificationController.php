@@ -6,28 +6,28 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\FolderNotification;
+use App\MemoNotification;
 use DB;
 use Auth;
 
-class FolderNotificationController extends Controller
+class MemoNotificationController extends Controller
 {
+
     /**
-    * Fetch Folder notification
+    * Fetch Memo notification
     *
     */
-
     public function fetch(Request $request){
 
         $user = Auth::user();
         //$notif_count = DB::select('select count(*) from folder_notifications where status=0');
         
-        $notif_count = FolderNotification::where('receiver_id', '=', Auth::user()->id)
+        $memo_count = MemoNotification::where('receiver_id', '=', Auth::user()->id)
             ->where('status', '=', 0)
             ->orderBy('created_at', 'desc')
             ->count();
         
-        $data = array('user'=>$user, 'notif_count' => $notif_count);
+        $data = array('user'=>$user, 'memo_count' => $memo_count);
         return response()->json($data);
     }
 
@@ -37,12 +37,12 @@ class FolderNotificationController extends Controller
         $receiver_id =  Auth::user()->id;
         
         $status = 0;
-        $notifications = DB::select('select * from folder_notifications where receiver_id = ? and status = ?', [$receiver_id, $status]);
+        $notifications = DB::select('select * from memo_notifications where receiver_id = ? and status = ?', [$receiver_id, $status]);
 
         foreach($notifications as $notification){
             $notif_id = ((array) $notification)["id"];
 
-            DB::update('update folder_notifications set status = ? where id = ?', [1, $notif_id]);
+            DB::update('update memo_notifications set status = ? where id = ?', [1, $notif_id]);
         }
 
         return response()->json((array) $notifications); //redirect()->back();

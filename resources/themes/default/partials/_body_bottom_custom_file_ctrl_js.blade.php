@@ -1,5 +1,6 @@
 <script type="text/javascript">    
     $(function(){
+
       // $('form#commentForm').on('submit', function(){
           // console.log('1 comment posted');
        //});
@@ -25,16 +26,47 @@
        function pageRefresh(view = ''){
            //var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
            $.ajax({
-               url:"fetch_notification",
+               url:"folder_notification",
                method:"GET",
                dataType:"json",
                success:function(returnData)
                {
-                   $('#folder_notif').html(returnData.notif_count);
-                   console.log('Working, data.count is: '+ returnData.notif_count);
+                   var notif_count = returnData.notif_count;
+                   $('#folder_notif').html(notif_count);
+                   //console.log('Working, data.count is: '+ notif_count);
+
+                   if(notif_count === 0){
+                       $('#folder_notif').removeClass('label-danger');
+                       $('#folder_notif_icon').removeClass('fa-folder-open-o').addClass('fa-folder-o');
+                   }
+                   else{
+                       $('#folder_notif').addClass('label-danger');
+                       $('#folder_notif_icon').removeClass('fa-folder-o').addClass('fa-folder-open-o');
+                   }
                },
                error:function(){
-                   console.log('error');
+                   console.log('error connecting to fetch folder notification');
+               }
+           });
+
+           $.ajax({
+               url:"memo_notification",
+               method:"GET",
+               dataType:"json",
+               success:function(returnData)
+               {
+                   var memo_count = returnData.memo_count;
+                   $('#memo_notif').html(memo_count);
+                   // console.log('Working, data.count is: '+ memo_count);
+                   if(memo_count === 0){
+                       $('#memo_notif').removeClass('label-success');
+                   }
+                   else{
+                       $('#memo_notif').addClass('label-success');
+                   }
+               },
+               error:function(){
+                   console.log('error connecting to fetch memo notification');
                }
            });
        }
@@ -42,10 +74,43 @@
        
        setInterval(function(){
            pageRefresh(); // refresh page every 5 sec.       
-        }, 5000);        // for forward button.
+        }, 2000);        // for forward button.
        $('#forwardBtn').on('click', function(e){            //e.preventDefault();
            //e.stopPropagation();
            //console.log('Working');
        });
+
+       $('#notif_toggle').on("click", function(){
+           $.ajax({
+               url:"notif_seen",
+               method:"GET",
+               dataType:"json",
+               success:function(data)
+               {
+                   // var data_length = Object.keys(data).length;  // doesn't support old IE browsers
+                   // console.log("connection to notification seen, successful");
+               },
+               error:function(){
+                   console.log('error, connecting to notification controller ');
+               }
+           });
+       });
+
+       $('#memo_toggle').on("click", function(){
+           $.ajax({
+               url:"memo_seen",
+               method:"GET",
+               dataType:"json",
+               success:function(data)
+               {
+                   // perform actions...
+               },
+               error:function(){
+                   console.log('error, connecting to notification controller ');
+               }
+           });
+       });
+
+
    })
 </script>
