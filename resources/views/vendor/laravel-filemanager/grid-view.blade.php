@@ -30,6 +30,7 @@
 		<li><a href="javascript:rename('{{ $item_name }}')"><i class="fa fa-share-square-o fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-share') }}</a></li>
 		  
 		  <li><a href="javascript:history('{{ $item_name }}')"><i class="fa fa-arrows fa-fw"></i> History</a></li>
+       <li><a href="javascript:move('{{ $item_name }}')"><i class="fa fa-external-link fa-fw"></i> Move</a></li>
 		  
           @if($item->is_file)
 			  <li><a href="javascript:download('{{ $item_name }}')"><i class="fa fa-download fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-download') }}</a></li>

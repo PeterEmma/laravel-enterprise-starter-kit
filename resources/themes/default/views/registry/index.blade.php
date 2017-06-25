@@ -2,6 +2,68 @@
 
 @section('content')
 <!-- think of removing the wrapper id and container fluid class-->
+
+  <style>
+
+    .filemanager{
+      background-color: black;
+    }
+    .filemanager .search {
+      position: absolute;
+      padding-right: 30px;
+      cursor: pointer;
+      right: 0;
+      font-size: 17px;
+      color: #ffffff;
+      display: block;
+      width: 40px;
+      height: 40px;
+    }
+
+    .filemanager .search:before {
+      content: '';
+      position: absolute;
+      margin-top:12px;
+      width: 12px;
+      height: 13px;
+      border-radius: 80%;
+      border: 2px solid black;
+      right: 8px;
+    }
+
+    .filemanager .search:after {
+      content: '';
+      width: 3px;
+      height: 10px;
+      background-color: black;
+      border-radius: 2px;
+      position: absolute;
+      top: 23px;
+      right: 6px;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+
+    .filemanager .search input[type=search] {
+      border-radius: 2px;
+      color: #4D535E;
+      background-color: #FFF;
+      width: 250px;
+      height: 44px;
+      margin-left: -215px;
+      padding-left: 20px;
+      text-decoration-color: #4d535e;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      display: none;
+      outline: none;
+      border: none;
+      padding-right: 10px;
+      -webkit-appearance: none;
+    }
+  
+  </style>
   <div class="container-fluid" id="wrapper">
     <div class="row">
       <div class="col-sm-2 hidden-xs">
@@ -25,6 +87,15 @@
           </div>
           <div class="collapse navbar-collapse" id="nav-buttons">
             <ul class="nav navbar-nav navbar-right">
+
+              <li>
+                <div class="filemanager" title="search a folder">
+                {{-- <i id="search_icon" class="fa fa-search fa-fw" data-toggle="search" data-target="#search" aria-hidden="true"></i> --}}
+                  <span id="search" class="search">
+                    <input id="search_input" type="search" placeholder="Search..."/>
+                  </span>
+                </div>
+              </li>
               <li>
                 <a class="clickable" id="thumbnail-display">
                   <i class="fa fa-th-large"></i>
@@ -279,4 +350,8 @@
         ]
       });
     </script>
+
+    {{-- Search script --}}
+    @include('views.registry.folder_search_js')
+
 @endsection

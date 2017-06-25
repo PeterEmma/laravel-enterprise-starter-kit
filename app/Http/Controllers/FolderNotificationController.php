@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\FolderNotification;
 use DB;
 use Auth;
 
-class FolderNotification extends Controller
+class FolderNotificationController extends Controller
 {
 
     public function fetch(Request $request){
@@ -17,18 +18,12 @@ class FolderNotification extends Controller
         $user = Auth::user();
         //$notif_count = DB::select('select count(*) from folder_notifications where status=0');
         
-        $notif_count = App\FolderNotification::where('receiver_id', '=', Auth::user()->id)
+        $notif_count = FolderNotification::where('receiver_id', '=', Auth::user()->id)
             ->where('status', '=', 0)
             ->orderBy('created_at', 'desc')
             ->count();
         
-            // ->orWhere(function($query){
-            //     $query->where('receiver_id', '=', Auth::user()->id)
-            //           ->where('status', '=', 0);
-            //  })
-        //$users = DB::table('users')->select('name', 'email as user_email')->get();
-        
-        $data = array('user'=>$user, 'notif_count' => 5 );
+        $data = array('user'=>$user, 'notif_count' => $notif_count);
         return response()->json($data);
     }
     /**

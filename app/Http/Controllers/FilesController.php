@@ -163,11 +163,6 @@ class FilesController extends Controller {
         $receiver_email = DB::select('select email from users where first_name=? and last_name=?', [$first_name, $last_name]);        $folder_to = $receiver_email; // $temp
        DB::update('update folders set folder_to = ? where fold_name = ?',[$folder_to,$fold_name]);
        
-        // retrieve the folder handle and save.
-        //$folder = Folder::find($request->input('fold_name'));        //$temp = $request->input('share-input');
-        
-        //$folder->fold_name = $request->input();        //$folder->folder_to = $temp; // $receiver_email;
-       //$folder->save();
         
         // create activity for sharing the folder
         $activity = new Activity;
