@@ -152,16 +152,27 @@ class FilesController extends Controller {
     {
 
 		// retrieve the folder handle and save.
-       $fold_name = Input::get('fold_name');
-       $temp = Input::get('share-input');
+       	$fold_name = Input::get('fold_name');
+       	$temp = Input::get('share-input');
         
         // remove white spaces...
         $temp = preg_replace('/\s+/', '', $temp);
         $fullname_array = explode(',', $temp);
         $first_name = $fullname_array[0];
         $last_name  = $fullname_array[1];
-        $receiver_email = DB::select('select email from users where first_name=? and last_name=?', [$first_name, $last_name]);        $folder_to = $receiver_email; // $temp
-       DB::update('update folders set folder_to = ? where fold_name = ?',[$folder_to,$fold_name]);
+
+		$receiver_object = DB::select('select * from users where first_name=? and last_name=?', [$first_name, $last_name]);		
+		$temp_arr = array();
+		foreach($receiver_object as $key => $value){
+			foreach($value as $field => $data){
+				$temp_arr[$field] = $data;
+			}
+		}
+		$receiver_user = $temp_arr;  // receiver user. It's now easy to get the fields
+		$receiver_email=  $receiver_user['email'];
+
+		$folder_to = $receiver_email; // $temp;
+        DB::update('update folders set folder_to = ? where fold_name = ?',[$folder_to, $fold_name]);
        
         
         // create activity for sharing the folder
@@ -171,23 +182,17 @@ class FilesController extends Controller {
         $activity->folder_id= Input::get('fold_name');
         $activity->activity= Input::get('activity'). $shareInput;
         $activity->save();        // create a notification and save to database
-        // $folder_notif = new FolderNotification();
-        // $folder_notif->sender_id = Auth::user()->id;
-        // $receiver_email = Input::get('share-input');
-        // $folder_notif->receiver_id = User::where('email', $receiver_email)->first()->id;
-        // $folder_notif->folder_id = 1; //Folder::find($request->input('fold_name'))->first()->id;
-        
-        // $folder_notif->save();        // create a notification and save to database
+      
         $sender_id = Auth::user()->id;
-        $receiver_email = $folder_to;
-        $receiver_id = DB::table('users')->where('email', $receiver_email)->first()->id;
-        //                             //->where('last_name', $last_name)->first();
-        // $receiver_fullname_array = explode(',', $receiver_fullname);
-        // $first_name = $receiver_fullname_array[0];
-        // $last_name = $receiver_fullname_array[1];        $folder_id = 1; //Folder::find($request->input('fold_name'))->first()->id;
+        $receiver_id =  $receiver_user['id']; // DB::table('users')->where('email', $receiver_email)->first()->id;
+              
+		$folder_id = 1;
+		
         // create notification
-        FolderNotification::create(['folder_id'=>$folder_id, 'sender_id'=>$sender_id, 'receiver_id'=>$receiver_id]);        //return 'session';
-        Flash::success('File has been sent to '. $folder_to); //Input::get('share-input'));
+        FolderNotification::create(['folder_id'=>$folder_id, 'sender_id'=>$sender_id, 'receiver_id'=>$receiver_id]);        
+		
+		//return 'session';
+        Flash::success('File has been sent to '. $first_name . ', '. $last_name);
         return redirect()->back()->with('Dashboard up-to-date');
     }
 	

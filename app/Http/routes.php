@@ -58,7 +58,7 @@ Route::get( 'welcome',    ['as' => 'welcome',     'uses' => 'HomeController@welc
 Route::get( 'news/feed',  ['as' => 'feed',        'uses' => 'News\NewsController@newsfeed']);
 Route::get( 'news/stream',['as' => 'newsstream',  'uses' => 'News\NewsController@newsstream']);
 Route::get( 'fetch_notification',['as' => 'fetch_notification',  'uses' => 'FolderNotificationController@fetch']);
-Route::get( 'scan_dir',   ['as' => 'scan_dir',    'uses' => 'SearchFolderController@scandir']);
+Route::get( 'scandir',   ['as' => 'scan_dir',    'uses' => 'FileManagement\SearchFolderController@scandir']);
 
 
 // Custom routes to test feeds
