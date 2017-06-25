@@ -57,12 +57,15 @@
                {
                    var memo_count = returnData.memo_count;
                    $('#memo_notif').html(memo_count);
+                   $('#inbox_left').html(memo_count);
                    // console.log('Working, data.count is: '+ memo_count);
                    if(memo_count === 0){
                        $('#memo_notif').removeClass('label-success');
+                       $('#inbox_left').removeClass('label-primary');
                    }
                    else{
                        $('#memo_notif').addClass('label-success');
+                       $('#inbox_left').addClass('label-primary');
                    }
                },
                error:function(){
@@ -96,7 +99,7 @@
            });
        });
 
-       $('#memo_toggle').on("click", function(){
+       $('#memo_toggle, #inbox_left_li').on("click", function(){
            $.ajax({
                url:"memo_seen",
                method:"GET",
