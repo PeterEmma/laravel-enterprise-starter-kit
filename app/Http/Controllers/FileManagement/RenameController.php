@@ -8,7 +8,6 @@ use Unisharp\Laravelfilemanager\Events\FolderWasRenamed;
 
 /**
  * Class RenameController
- * @package Unisharp\Laravelfilemanager\controllers
  */
 class RenameController extends LfmController
 {
@@ -52,6 +51,7 @@ class RenameController extends LfmController
         if (File::isDirectory($old_file)) {
             File::move($old_file, $new_file);
             event(new FolderWasRenamed($old_file, $new_file));
+            Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-rename', ['fold_name' => $old_name]));
             return parent::$success_response;
         }
 
@@ -62,6 +62,7 @@ class RenameController extends LfmController
         File::move($old_file, $new_file);
 
         event(new ImageWasRenamed($old_file, $new_file));
+        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-rename-img'));
 
         return parent::$success_response;
     }

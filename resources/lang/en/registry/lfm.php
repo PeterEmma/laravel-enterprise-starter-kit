@@ -1,6 +1,29 @@
 <?php
 
 return [
+    
+    'audit-log'         => [
+        'category'              => 'Registry',
+        'msg-index'             => 'Accessed list of Folders in Registry.',
+        'msg-show'              => 'Accessed details of folder: :fold_name.',
+        'msg-store'             => 'Created new Folder: :fold_name.',
+        'msg-edit'              => 'Initiated edit of folder: :fold_name.',
+        'msg-rename'            => 'Initiated rename of folder: :fold_name.',
+        'msg-rename-img'        => 'Initiated rename of image.',
+        'msg-resize-img'        => 'Initiated resize of image.',
+        'msg-newfolder'         => 'Initiated adding of new folder: :fold_name.',
+        'msg-replay-edit'       => 'Initiated replay edit of folder: :fold_name.',
+        'msg-update'            => 'Submitted edit of folder: :fold_name.',
+        'msg-destroy'           => 'Deleted folder: :fold_name.',
+        'msg-shared'            => 'Shared folder: :fold_name.',
+        'msg-upload-doc'        => 'Upload new document: :doc_title',
+        'msg-upload-file'        => 'Upload new file: :file_name',
+        'msg-moved'             => 'Moved folder: :fold_name.',
+        'msg-moved-to-KIV'      => 'Moved to KIV folder: :fold_name.',
+        'msg-return-from-KIV'   => 'Returned from KIV folder: :fold_name.',
+    ],
+
+
     'nav-back'          => 'Back',
     'nav-new'           => 'New Folder',
     'nav-upload'        => 'Upload',

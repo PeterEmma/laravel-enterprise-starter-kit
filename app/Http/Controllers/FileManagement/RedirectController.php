@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 /**
  * Class RedirectController
- * @package Unisharp\Laravelfilemanager\controllers
  */
 class RedirectController extends LfmController
 {

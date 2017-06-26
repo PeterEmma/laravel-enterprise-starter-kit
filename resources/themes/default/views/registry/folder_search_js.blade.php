@@ -23,24 +23,10 @@
 			success:function(data)
 			{
 				console.log(data);
-				$('.search').click(function(){
-					var search = $(this);
-					search.find('span').hide();
-					search.find('input[type=search]').show().focus();
-				});
 			},
 			error:function(){
 				console.log('error in scan_dir');
 			}
-		});
-
-		$('.search').click(function(){
-
-			var search = $(this);
-
-			search.find('span').hide();
-			search.find('input[type=search]').show().focus();
-
-		});		   
+		});	   
 	})
 </script>

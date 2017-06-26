@@ -7,14 +7,13 @@ use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
 use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
 
 use DB;
-use App\document;
-use App\folder;
-use App\activity;
+use App\Document;
+use App\Folder;
+use App\Activity;
 
 use Illuminate\Support\Facades\Input;
 /**
  * Class UploadController
- * @package Unisharp\Laravelfilemanager\controllers
  */
 class UploadController extends LfmController
 {
@@ -25,34 +24,29 @@ class UploadController extends LfmController
      * @return string
      */
 	 
-	 
-	 
-	 
-	 public function newfolder()
+	public function newfolder()
     {
-		$user = new folder;
+		$new_folder = new Folder;
 		$FolderName= Input::get('add-folder-input');
 		$NewName= '/1/'.$FolderName;
-		$user->id= $NewName;
-		$user->fold_name= $NewName;
-		$user->registry= Input::get('folder_by');
-		$user->folder_by= 'registry@kdsg.gov.ng';
-		$user->clearance_level= Input::get('clearance_level');
-		$user->save();   
+		$new_folder->id= $NewName;
+		$new_folder->fold_name= $NewName;
+		$new_folder->registry= Input::get('folder_by');
+		$new_folder->folder_by= 'registry@kdsg.gov.ng';
+		$new_folder->clearance_level= Input::get('clearance_level');
+		$new_folder->save();
+
+        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-newfolder', ['fold_name' => $new_folder->fold_name]));   
     }
-	
-	
 	
 	public function share()
     {
-	  $id = Input::get('add-folder-input');
-	  $fold_name = $request->input('rename-input');
-      DB::update('update folders set folder_to = ? where id = ?',[$folder_to,$id]);
-	
-       
+        $id = Input::get('add-folder-input');
+        $fold_name = $request->input('rename-input');
+        DB::update('update folders set folder_to = ? where id = ?',[$folder_to,$id]);
+
+        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-shared', ['fold_name' => $fold_name])); 
     }
-	
-	
 	
     public function upload()
     {
@@ -69,26 +63,26 @@ class UploadController extends LfmController
             }
 			
 			
-		$new_file_path = parent::getCurrentPath($new_filename);
-		$user = new document;
-		$user->folder_id= Input::get('working_dir');
-		$user->title= Input::get('name');
-		if (Input::hasFile('upload')){
-			$file=Input::file('upload');
-			$user->name = $new_filename;//$new_file_path.'/'.$new_filename;
-		}
-		$user->save();
-		
-		$id= Input::get('working_dir');
-		DB::table('folders')
-            ->where('id', $id)
-            ->update(array('latest_doc' => $new_filename));
-		
-		$user2 = new activity;
-		$user2->activity_by= Input::get('comment_by');
-		$user2->folder_id= Input::get('working_dir');
-		$user2->activity= Input::get('activity');
-		$user2->save();
+            $new_file_path = parent::getCurrentPath($new_filename);
+            $new_document = new Document;
+            $new_document->folder_id= Input::get('working_dir');
+            $new_document->title= Input::get('name');
+            if (Input::hasFile('upload')){
+                $file=Input::file('upload');
+                $new_document->name = $new_filename;//$new_file_path.'/'.$new_filename;
+            }
+            $new_document->save();
+            
+            $id= Input::get('working_dir');
+            DB::table('folders')
+                ->where('id', $id)
+                ->update(array('latest_doc' => $new_filename));
+            
+            $new_activity = new Activity;
+            $new_activity->activity_by= Input::get('comment_by');
+            $new_activity->folder_id= Input::get('working_dir');
+            $new_activity->activity= Input::get('activity');
+            $new_activity->save();
         }
 
         if (is_array($files)) {
@@ -96,6 +90,8 @@ class UploadController extends LfmController
         } else { // upload via ckeditor 'Upload' tab
             $response = $this->useFile($new_filename);
         }
+
+        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-upload-doc', ['doc_title' => $new_document->title])); 
 	
         return $response;
     }
@@ -126,6 +122,7 @@ class UploadController extends LfmController
             return parent::error('invalid');
         }
         event(new ImageWasUploaded(realpath($new_file_path)));
+        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-upload-file', ['file_name' => $new_filename])); 
 
         return $new_filename;
     }

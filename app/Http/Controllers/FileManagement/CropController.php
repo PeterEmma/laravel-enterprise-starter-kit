@@ -1,13 +1,11 @@
 <?php namespace App\Http\Controllers\FileManagement;
 
-//use Unisharp\Laravelfilemanager\controllers\Controller;
 use Intervention\Image\Facades\Image;
 use Unisharp\Laravelfilemanager\Events\ImageIsCropping;
 use Unisharp\Laravelfilemanager\Events\ImageWasCropped;
 
 /**
  * Class CropController
- * @package Unisharp\Laravelfilemanager\controllers
  */
 class CropController extends LfmController
 {
@@ -48,5 +46,6 @@ class CropController extends LfmController
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
             ->save(parent::getThumbPath(parent::getName($image_path)));
         event(new ImageWasCropped($image_path));
+        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-index'));
     }
 }

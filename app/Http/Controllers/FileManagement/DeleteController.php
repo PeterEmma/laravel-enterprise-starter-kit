@@ -6,7 +6,6 @@ use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
 
 /**
  * Class CropController
- * @package Unisharp\Laravelfilemanager\controllers
  */
 class DeleteController extends LfmController
 {
@@ -49,6 +48,7 @@ class DeleteController extends LfmController
         File::delete($file_to_delete);
 
         event(new ImageWasDeleted($file_to_delete));
+        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-destroy'));
 
         return parent::$success_response;
     }

@@ -28,8 +28,8 @@ class SearchFolderController extends Controller
 
     public function scandir(Request $request)
     {
-        echo array("apple"=> 1);
-
+        $data = array("apple"=> 1);
+        return response()->json($data);
     }
     
 }

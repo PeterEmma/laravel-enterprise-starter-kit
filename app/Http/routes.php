@@ -1,6 +1,6 @@
 <?php
 
- $namespace = '\Unisharp\Laravelfilemanager\controllers';
+ // $namespace = '\Unisharp\Laravelfilemanager\controllers';
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -21,7 +21,7 @@ Route::get('edit-records','FilesController@index');
 
 Route::post('newdocument','FileManagement\UploadController@upload');
 Route::post('newfolder','FileManagement\UploadController@newfolder');
-Route::post('update/{id}','FilesController@update');
+Route::post('update/{id}','FilesController@update'); // remove the id
 
 
 Route::get('/error',function(){
@@ -48,6 +48,7 @@ Route::post('password/email',           ['as' => 'recover_passwordPost',    'use
 // Password reset routes...
 Route::get( 'password/reset/{token}',   ['as' => 'reset_password',          'uses' => 'Auth\PasswordController@getReset']);
 Route::post('password/reset',           ['as' => 'reset_passwordPost',      'uses' => 'Auth\PasswordController@postReset']);
+
 // Registration terms
 Route::get( 'faust',                    ['as' => 'faust',                   'uses' => 'FaustController@index']);
 
@@ -55,13 +56,11 @@ Route::get( 'faust',                    ['as' => 'faust',                   'use
 Route::get( '/',          ['as' => 'backslash',   'uses' => 'HomeController@index']);
 Route::get( 'home',       ['as' => 'home',        'uses' => 'HomeController@index']);
 Route::get( 'welcome',    ['as' => 'welcome',     'uses' => 'HomeController@welcome']);
+
+// Custom routes to test feeds
 Route::get( 'news/feed',  ['as' => 'feed',        'uses' => 'News\NewsController@newsfeed']);
 Route::get( 'news/stream',['as' => 'newsstream',  'uses' => 'News\NewsController@newsstream']);
 
-
-
-
-// Custom routes to test feeds
 
 
 // Routes in this group must be authorized.
@@ -84,6 +83,7 @@ Route::group(['middleware' => 'authorize'], function () {
 
     Route::get( 'notif_seen', ['as' => 'notif_seen',  'uses' => 'FolderNotificationController@notificationseen']);
     Route::get( 'memo_seen',  ['as' => 'memo_seen',   'uses' => 'MemoNotificationController@notificationseen']);
+    
     Route::get( 'scandir',    ['as' => 'scan_dir',    'uses' => 'FileManagement\SearchFolderController@scandir']);
     
     Route::get(   'user/profile/photo',   ['as' => 'user.profile.photo',       'uses' => 'UsersController@profilePhoto']);
@@ -206,8 +206,10 @@ Route::group(['middleware' => 'authorize'], function () {
 
     // Unisharp upload routes
     Route::group(['prefix' => 'registry'], function (){
-        Route::get('/laravel-filemanager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show');
-        Route::post('/laravel-filemanager/upload', '\Unisharp\Laravelfilemanager\controllers\LfmController@upload');
+        Route::get('/laravel-filemanager', 'FileManagement\LfmController@show');
+        Route::post('/laravel-filemanager/upload', 'FileManagement\LfmController@upload');
+
+        // \Unisharp\Laravelfilemanager\controllers
         // list all lfm routes here...
 
         // @cpnwaugha: I decided not to scaffold the Controllers so as to reduce the app size

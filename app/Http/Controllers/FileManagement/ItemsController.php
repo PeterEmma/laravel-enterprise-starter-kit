@@ -6,7 +6,6 @@ use App\activity;
 use DB;
 /**
  * Class ItemsController
- * @package Unisharp\Laravelfilemanager\controllers
  */
 class ItemsController extends LfmController
 {

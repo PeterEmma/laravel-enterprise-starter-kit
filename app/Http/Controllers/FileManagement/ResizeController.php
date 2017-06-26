@@ -6,7 +6,6 @@ use Unisharp\Laravelfilemanager\Events\ImageWasResized;
 
 /**
  * Class ResizeController
- * @package Unisharp\Laravelfilemanager\controllers
  */
 class ResizeController extends LfmController
 {
@@ -64,6 +63,7 @@ class ResizeController extends LfmController
         event(new ImageIsResizing($image_path));
         Image::make($image_path)->resize($width, $height)->save();
         event(new ImageWasResized($image_path));
+        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-resize-img'));
         
         return parent::$success_response;
     }
