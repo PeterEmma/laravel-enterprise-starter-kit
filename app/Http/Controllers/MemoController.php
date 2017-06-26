@@ -75,7 +75,7 @@ class MemoController extends Controller
         $page_description = trans('admin/users/general.page.index.description'); // "List of users";
         
         $user_id = Auth::user()->email;
-        $memos = DB::table('memos')->orderBy('created_at', 'DESC')->paginate(12);  
+        $memos = DB::table('memos')->where('emailto', $user_id)->orderBy('created_at', 'DESC')->paginate(4);  
         $users = $this->user->pushCriteria(new UsersWithRoles())->pushCriteria(new UsersByUsernamesAscending())->paginate(10);
         return view('inbox', compact('users', 'page_title', 'page_description', 'memos'));
     }

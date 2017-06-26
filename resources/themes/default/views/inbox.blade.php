@@ -29,7 +29,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-3">
-          <a href="inbox" class="btn btn-primary btn-block margin-bottom">Back to Inbox</a>
+          <a href="compose" class="btn btn-primary btn-block margin-bottom">Compose</a>
           <div class="box box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">Memo</h3>
@@ -55,7 +55,7 @@
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
                 <li><a href="dashboard"><i class="fa fa-circle-o text-red"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Activity Timeline</a></li>
+                <li><a href="viewall"><i class="fa fa-circle-o text-yellow"></i> Activity Timeline</a></li>
               </ul>
             </div><!-- /.box-body -->
           </div><!-- /.box -->
@@ -82,10 +82,9 @@
                     </div><!-- /.btn-group -->
                     <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                     <div class="pull-right">
-                      1-50/200
+                     
                       <div class="btn-group">
-                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                        <?php echo $memos->render(); ?>
                       </div><!-- /.btn-group -->
                     </div><!-- /.pull-right -->
                   </div>
@@ -93,17 +92,17 @@
                     <table class="table table-hover table-striped">
                       <tbody>
 					   @foreach($memos as $memo)
-						@if($memo->emailto == Auth::user()->email)
+						
                         <tr>
                           <td><input type="checkbox" /></td>
                           <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
 						  
-                          <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                          <td class="mailbox-subject"><b>{{ $memo->subject}}</b> {{ $memo->message}}</td>
+                          <td class="mailbox-name"><a href="read-mail.html">{{ $memo->emailfrom}}</a></td>
+                          <td class="mailbox-subject"><b>{{ $memo->subject}}</b> | {{ $memo->message}}</td>
                           <td class="mailbox-attachment"></td>
                           <td class="mailbox-date">{{ date('F d, Y', strtotime($memo->created_at )) }}</td>
                         </tr>
-						 @endif
+						
 						@endforeach
                       </tbody>
                     </table><!-- /.table -->
@@ -120,10 +119,9 @@
                     </div><!-- /.btn-group -->
                     <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                     <div class="pull-right">
-                      1-50/200
+                    
                       <div class="btn-group">
-                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                        <?php echo $memos->render(); ?>
                       </div><!-- /.btn-group -->
                     </div><!-- /.pull-right -->
                   </div>
