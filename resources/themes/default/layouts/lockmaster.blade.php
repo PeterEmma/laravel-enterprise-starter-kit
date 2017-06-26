@@ -1,15 +1,14 @@
-<?php
-    $page_title = 'LockScreen';
-    $page_description = trans('general.error.description-403');
-?>
-
 <!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>AdminLTE 2 | Lockscreen</title>
+    <title>{{ Setting::get('app.short_name') }} | {{ $page_title or "Page Title" }}</title>
     <!-- Tell the browser to be responsive to screen width -->
-       <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Set a meta reference to the CSRF token for use in AJAX request -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
@@ -78,53 +77,28 @@
       <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/js/pmd-select2.js")}}"></script>
 
 
+
+      <!-- Optionally, you can add Slimscroll and FastClick plugins.
+            Both of these plugins are recommended to enhance the
+            user experience. Slimscroll is required when using the
+            fixed layout. -->
+
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+      <!-- Application JS-->
+      <script src="{{ asset(elixir('js/all.js')) }}"></script>
+
+      <!-- Optional header section  -->
+      @yield('head_extra')
+
   </head>
-  <body class="lockscreen">
 
-    <!-- Automatic element centering -->
-    <div class="lockscreen-wrapper">
-      <div class="lockscreen-logo">
-        <a href="/"><b>Kaduna State</b></br>FMS | LockScreen</a>
-      </div>
-      <!-- User name -->
-      <div class="lockscreen-name"></div>
+  <!-- Body -->
+  @include('partials._body')
 
-      <!-- START LOCK SCREEN ITEM -->
-      <div class="lockscreen-item">
-        <!-- lockscreen image -->
-        <div class="lockscreen-image">
-          <img src="{{ asset ("/assets/themes/default/img/fms.png") }}" alt="User Image">
-        </div>
-        <!-- /.lockscreen-image -->
-
-        <!-- lockscreen credentials (contains the form) -->
-        <form class="lockscreen-credentials" method="POST" action="{!! route('loginPost') !!}">
-        {!! csrf_field() !!}
-          <div class="input-group">
-            <input type="text" id="username" name="username" class="form-control" placeholder="User name" value="{{ old('username') }}" required autofocus/>
-             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required/>
-            <div class="input-group-btn">
-              <button class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
-            </div>
-          </div>
-        </form><!-- /.lockscreen credentials -->
-
-      </div><!-- /.lockscreen-item -->
-      <div class="help-block text-center">
-        Enter your password to retrieve your session
-      </div>
-      <div class='text-center'>
-        <a href="auth/login">Or sign in as a different user</a>
-      </div>
-      <div class='lockscreen-footer text-center'>
-        Copyright &copy; 2017-2018 <b><a href="/" class='text-black'>kaduna State Government</a></b><br>
-        All rights reserved
-      </div>
-    </div><!-- /.center -->
-
-    <!-- jQuery 2.1.4 -->
-    <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-  </body>
 </html>
