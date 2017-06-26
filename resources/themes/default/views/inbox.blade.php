@@ -95,12 +95,12 @@
 						
                         <tr>
                           <td><input type="checkbox" /></td>
-                          <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-						  
+                          <a href="read_memo/{{ $user->id }}">						  
                           <td class="mailbox-name"><a href="read-mail.html">{{ $memo->emailfrom}}</a></td>
                           <td class="mailbox-subject"><b>{{ $memo->subject}}</b> | {{ $memo->message}}</td>
                           <td class="mailbox-attachment"></td>
                           <td class="mailbox-date">{{ date('F d, Y', strtotime($memo->created_at )) }}</td>
+                          </a>
                         </tr>
 						
 						@endforeach

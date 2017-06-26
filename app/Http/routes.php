@@ -69,6 +69,7 @@ Route::group(['middleware' => 'authorize'], function () {
     Route::get(   'compose',      ['as' => 'compose',          'uses' => 'MemoController@compose']);
 	Route::get(   'dashboard',      ['as' => 'dashboard',          'uses' => 'DashboardController@index']);
 	Route::get(   'inbox',      ['as' => 'inbox',          'uses' => 'MemoController@inbox']);
+    Route::get(   'read_memo/{id}',      ['as' => 'read_memo/{id}',          'uses' => 'MemoController@read_memo']);
 	Route::get(   'session',      ['as' => 'session',          'uses' => 'DashboardController@session']);
 	Route::post(   'store',      ['as' => 'store',          'uses' => 'DashboardController@store']);
     Route::get(   'viewall',      ['as' => 'viewall',          'uses' => 'DashboardController@viewall']);

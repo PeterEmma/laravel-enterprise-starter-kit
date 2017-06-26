@@ -13,7 +13,6 @@ class SearchFolderController extends Controller
     /**
      * @var Directory
      */
-    protected $dir;
 
     /**
      * Display a listing of the resource.
@@ -23,14 +22,14 @@ class SearchFolderController extends Controller
 
     public function __construct()
     {
-        $this->dir = base_path("public/docs/files/1");
+        // $this->dir = base_path("public/docs/files/1");
     }
 
-    public function scanDirectory(Request $request)
+    public function scanDirectory($dir = "C:/xampp/htdocs/laravel/newlesk/public/docs/files/1")
     {
-
+        
         $files = array();
-        $dir = $this->dir;
+        //$dir = $this->dir;
         // Is there actually such a folder/file?
         if(file_exists($dir)){
             
@@ -45,7 +44,7 @@ class SearchFolderController extends Controller
                             "name" => $f,
                             "type" => "folder",
                             "path" => $dir . '/' . $f,
-                            "items" => scan($dir . '/' . $f) // Recursively get the contents of the folder
+                            "items" => $this->scanDirectory($dir . '/' . $f) // Recursively get the contents of the folder
                         );
                     }
                 else {

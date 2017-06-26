@@ -80,6 +80,12 @@ class MemoController extends Controller
         return view('inbox', compact('users', 'page_title', 'page_description', 'memos'));
     }
     
+    public function read_memo($id) {
+      $users = DB::select('select * from posts where id = ?',[$id]);
+	  $profile = DB::select('select * from users');
+      return view('showarticle',compact('users', 'profile'));
+   }
+
     public function store_memo()
     {  
         $user = new Memo;
