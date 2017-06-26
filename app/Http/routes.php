@@ -84,7 +84,7 @@ Route::group(['middleware' => 'authorize'], function () {
     Route::get( 'notif_seen', ['as' => 'notif_seen',  'uses' => 'FolderNotificationController@notificationseen']);
     Route::get( 'memo_seen',  ['as' => 'memo_seen',   'uses' => 'MemoNotificationController@notificationseen']);
     
-    Route::get( 'scandir',    ['as' => 'scan_dir',    'uses' => 'FileManagement\SearchFolderController@scandir']);
+    Route::get( 'scandir',    ['as' => 'scandir',    'uses' => 'FileManagement\SearchFolderController@scanDirectory']);
     
     Route::get(   'user/profile/photo',   ['as' => 'user.profile.photo',       'uses' => 'UsersController@profilePhoto']);
     Route::patch( 'user/profile/photo',   ['as' => 'user.profile.photo.patch', 'uses' => 'UsersController@profilePhotoUpdate']);
@@ -199,8 +199,6 @@ Route::group(['middleware' => 'authorize'], function () {
         Route::get(   'settings/{settingKey}/edit',           ['as' => 'admin.settings.edit',             'uses' => 'SettingsController@edit']);
         Route::get(   'settings/{settingKey}/confirm-delete', ['as' => 'admin.settings.confirm-delete',   'uses' => 'SettingsController@getModalDelete']);
         Route::get(   'settings/{settingKey}/delete',         ['as' => 'admin.settings.delete',           'uses' => 'SettingsController@destroy']);
-
-
 
     }); // End of ADMIN group
 

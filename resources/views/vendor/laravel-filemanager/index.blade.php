@@ -152,7 +152,6 @@
       </div>
     </div>
 	{{-- eoluwafemi edit --}}
-	
 	<div class="modal fade" id="add-folderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -182,12 +181,8 @@
           </div>
         </div>
       </div>
-    </div>
-	
-	
-	
-		{{-- eoluwafemi rename --}}
-	
+    </div>	
+	{{-- eoluwafemi rename --}}
 	<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -219,11 +214,7 @@
         </div>
       </div>
     </div>
-	
-	
-	
-	
-	
+		
 	<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -252,8 +243,6 @@
         </div>
       </div>
     </div>
-	
-	
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

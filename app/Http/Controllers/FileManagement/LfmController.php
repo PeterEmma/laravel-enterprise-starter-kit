@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\activity;
 use DB;
+use Flash;
 /**
  * Class LfmController
  */
@@ -30,8 +31,8 @@ class LfmController extends Controller
         $page_title = trans('general.text.welcome');
         $page_description = "This is registry File Management Page";
 		$activity = DB::select('select * from activities');	
-        $request->session()->flash('status', 'Welcome to registry File Management Area.');
         
+        Flash::success('Welcome to registry File Management Area.');
         return view('registry.index', compact('page_description', 'page_title', 'activity'));
     }
 

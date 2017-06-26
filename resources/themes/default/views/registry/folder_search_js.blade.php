@@ -1,6 +1,6 @@
 {{-- <script>
     $(function(){
-		$.get('scan_dir', function(data) {
+		$.get('scandir', function(data) {
 
 			console.log(data);
 			$('.search').click(function(){
@@ -10,9 +10,7 @@
 				search.find('input[type=search]').show().focus();
 			});
 		});
-
 	})
-
 </script> --}}
 <script>
    $(function(){
@@ -23,9 +21,17 @@
 			success:function(data)
 			{
 				console.log(data);
+				$('.search').click(function(){
+				var search = $(this);
+
+				search.find('span').hide();
+				search.find('input[type=search]').show().focus();
+			});
 			},
 			error:function(){
-				console.log('error in scan_dir');
+				console.log('error in scandir');
+				
+				$('.filemanager').attr('title', 'Search inactive');
 			}
 		});	   
 	})
