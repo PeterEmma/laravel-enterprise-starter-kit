@@ -95,7 +95,7 @@
                         <tr>
                           <td><input type="checkbox" /></td>	  
                           <td class="mailbox-name"><a href="read_memo/{{ $memo->id }}">{{ $memo->emailfrom}}</a></td>
-                          <td class="mailbox-subject"><b>{{ $memo->subject}}</b> | {{ $memo->message}}</td>
+                          <td class="mailbox-subject"><b>{{ Str_limit($memo->subject, 25) }}</b> | {{ Str_limit($memo->message, 45) }}</td>
                           <td class="mailbox-attachment"></td>
                           <td class="mailbox-date">{{ date('F d, Y', strtotime($memo->created_at )) }}</td>
                         </tr>
