@@ -3,7 +3,6 @@
 <div class="row">
 
   @foreach($items as $item)
-  
   <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 img-row">
     <?php $item_name = $item->name; ?>
     <?php $thumb_src = $item->thumb; ?>
@@ -19,7 +18,7 @@
 
     <div class="caption text-center">
       <div class="btn-group">
-        <button type="button" id='fold_name' data-id="{{ $item_path }}" class="item_name btn btn-default btn-xs {{ $item->is_file ? 'file' : 'folder'}}-item">
+        <button type="button" data-id="{{ $item_path }}" class="item_name btn btn-default btn-xs {{ $item->is_file ? 'file' : 'folder'}}-item">
           {{ $item_name }}
         </button>
         <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
@@ -27,20 +26,16 @@
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-		<li><a href="javascript:rename('{{ $item_name }}')"><i class="fa fa-share-square-o fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-share') }}</a></li>
-		  
-		  <li><a href="javascript:history('{{ $item_name }}')"><i class="fa fa-arrows fa-fw"></i> History</a></li>
-       <li><a href="javascript:move('{{ $item_name }}')"><i class="fa fa-external-link fa-fw"></i> Move</a></li>
-		  
+          <li><a href="javascript:rename('{{ $item_name }}')"><i class="fa fa-edit fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
           @if($item->is_file)
-			  <li><a href="javascript:download('{{ $item_name }}')"><i class="fa fa-download fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-download') }}</a></li>
-			  <li class="divider"></li>
-			  @if($thumb_src)
-				  <li><a href="javascript:fileView('{{ $item_path }}', '{{ $item->updated }}')"><i class="fa fa-image fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-view') }}</a></li>
-				  <li><a href="javascript:resizeImage('{{ $item_name }}')"><i class="fa fa-arrows fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-resize') }}</a></li>
-				  <li><a href="javascript:cropImage('{{ $item_name }}')"><i class="fa fa-crop fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-crop') }}</a></li>
-				  <li class="divider"></li>
-			  @endif
+          <li><a href="javascript:download('{{ $item_name }}')"><i class="fa fa-download fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-download') }}</a></li>
+          <li class="divider"></li>
+          @if($thumb_src)
+          <li><a href="javascript:fileView('{{ $item_path }}', '{{ $item->updated }}')"><i class="fa fa-image fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-view') }}</a></li>
+          <li><a href="javascript:resizeImage('{{ $item_name }}')"><i class="fa fa-arrows fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-resize') }}</a></li>
+          <li><a href="javascript:cropImage('{{ $item_name }}')"><i class="fa fa-crop fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-crop') }}</a></li>
+          <li class="divider"></li>
+          @endif
           @endif
           <li><a href="javascript:trash('{{ $item_name }}')"><i class="fa fa-trash fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
         </ul>

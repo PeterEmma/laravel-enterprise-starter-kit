@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\File;
 
 use App\activity;
 use DB;
+
 /**
  * Class ItemsController
  */
@@ -18,18 +19,33 @@ class ItemsController extends LfmController
     {
         $path = parent::getCurrentPath();
         $sort_type = request('sort_type');
-		$activity = DB::select('select * from activities');	
+
+        $keyword = '%'.request('keyword').'%';
+
+		$folders = DB::select('select * from folders where fold_name like ? ', [$keyword]);
+        // $count = DB::select('select count(*) from folders where fold_name like ? ', [$keyword]);
+
+        // $temp = array();
+        // foreach($count_array as $field => $val ){
+        //     $temp[$field] = $val;
+        // }
+        // $count = $temp['count(*)'];
+
         $files = parent::sortFilesAndDirectories(parent::getFilesWithInfo($path), $sort_type);
         $directories = parent::sortFilesAndDirectories(parent::getDirectories($path), $sort_type);
+        $working_dir = parent::getInternalPath($path);
+
 
         return [
             'html' => (string)view($this->getView())->with([
                 'files'       => $files,
                 'directories' => $directories,
-				'activity' => $activity,
+				'folders'     => $folders,
+                // 'count'       => $count,
                 'items'       => array_merge($directories, $files)
             ]),
-            'working_dir' => parent::getInternalPath($path)
+            'working_dir' => $working_dir,
+            'pages' => 1
         ];
     }
 
@@ -39,7 +55,15 @@ class ItemsController extends LfmController
         $view_type = 'grid';
         $show_list = request('show_list');
 
-        if ($show_list === "1") {
+        if ($show_list === "3") {
+            $view_type = 'search';
+            return 'registry.' . $view_type . '-view';
+        }  
+        if ($show_list === "2") {
+            $view_type = 'search';
+            return 'registry.' . $view_type . '-list';
+        } 
+        elseif ($show_list === "1") {
             $view_type = 'list';
         } elseif (is_null($show_list)) {
             $type_key = parent::currentLfmType();

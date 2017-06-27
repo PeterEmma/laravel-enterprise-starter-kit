@@ -40,8 +40,8 @@
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
                 <li id="inbox_left_li"><a href="inbox"><i class="fa fa-inbox"></i> Inbox <span id="inbox_left" class="label label-primary pull-right"></span></a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                <li><a href="sent"><i class="fa fa-envelope-o"></i> Sent</a></li>
+                <li><a href="trash"><i class="fa fa-trash-o"></i> Trash</a></li>
               </ul>
             </div><!-- /.box-body -->
           </div><!-- /. box -->
@@ -92,17 +92,13 @@
                     <table class="table table-hover table-striped">
                       <tbody>
 					   @foreach($memos as $memo)
-						
                         <tr>
-                          <td><input type="checkbox" /></td>
-                          <a href="read_memo/{{ $user->id }}">						  
-                          <td class="mailbox-name"><a href="read-mail.html">{{ $memo->emailfrom}}</a></td>
+                          <td><input type="checkbox" /></td>	  
+                          <td class="mailbox-name"><a href="read_memo/{{ $memo->id }}">{{ $memo->emailfrom}}</a></td>
                           <td class="mailbox-subject"><b>{{ $memo->subject}}</b> | {{ $memo->message}}</td>
                           <td class="mailbox-attachment"></td>
                           <td class="mailbox-date">{{ date('F d, Y', strtotime($memo->created_at )) }}</td>
-                          </a>
                         </tr>
-						
 						@endforeach
                       </tbody>
                     </table><!-- /.table -->

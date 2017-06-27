@@ -81,9 +81,15 @@ class MemoController extends Controller
     }
     
     public function read_memo($id) {
-      $users = DB::select('select * from posts where id = ?',[$id]);
-	  $profile = DB::select('select * from users');
-      return view('showarticle',compact('users', 'profile'));
+        Audit::log(Auth::user()->id, trans('admin/users/general.audit-log.category'), trans('admin/users/general.audit-log.msg-index'));
+
+        $page_title = trans('admin/users/general.page.index.title'); // "Admin | Users";
+        $page_description = trans('admin/users/general.page.index.description'); // "List of users";
+        
+        $user_id = Auth::user()->email;
+        $memos = DB::select('select * from memos where id = ?',[$id]);
+        $users = $this->user->pushCriteria(new UsersWithRoles())->pushCriteria(new UsersByUsernamesAscending())->paginate(10);
+        return view('read-mail', compact('users', 'page_title', 'page_description', 'memos'));
    }
 
     public function store_memo()

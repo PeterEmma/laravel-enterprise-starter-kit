@@ -88,14 +88,22 @@
           <div class="collapse navbar-collapse" id="nav-buttons">
             <ul class="nav navbar-nav navbar-right">
 
-              <li>
+              {{-- <li>
                 <div class="filemanager" title="search a folder">
-                {{-- <i id="search_icon" class="fa fa-search fa-fw" data-toggle="search" data-target="#search" aria-hidden="true"></i> --}}
+                <i id="search_icon" class="fa fa-search fa-fw" data-toggle="search" data-target="#search" aria-hidden="true"></i>
                   <span id="search" class="search">
                     <input id="search_input" type="search" placeholder="Search..."/>
                   </span>
                 </div>
+              </li> --}}
+
+              <li style="display: inline-flex;margin-top: 8px">
+                <input id="keyword" name="keyword" class="form-control" onkeypress="searchFieldKeyPress(event)"/>
+                <button id="searchBtn" style="" class="btn btn-default" onclick="loadSearchItems()">
+                  <span class="fa fa-search fa-fw"></span>
+                </button>
               </li>
+
               <li>
                 <a class="clickable" id="thumbnail-display">
                   <i class="fa fa-th-large"></i>

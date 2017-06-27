@@ -15,7 +15,7 @@ return [
     'middlewares' => ['auth'],
 
     // The url to this package. Change it if necessary.
-    'prefix' => 'laravel-filemanager',
+    'prefix' => 'registry', //'laravel-filemanager',
 
     // The prefix of urls to non-public files, for exmaple if: base_directory !== 'public'
     // Without slashes
@@ -27,7 +27,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    // If true, private folders will be created for each signed-in user.
+    // If true, private folders will be created for each signed-in user. @cpnwaugha default: true
     'allow_multi_user' => true,
     // If true, share folder will be created when allow_multi_user is true.
     'allow_share_folder' => true,

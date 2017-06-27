@@ -40,8 +40,8 @@
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
                 <li id="inbox_left_li"><a href="inbox"><i class="fa fa-inbox"></i> Inbox <span id="inbox_left" class="label label-primary pull-right"></span></a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                <li><a href="sent"><i class="fa fa-envelope-o"></i> Sent</a></li>
+                <li><a href="trash"><i class="fa fa-trash-o"></i> Trash</a></li>
               </ul>
             </div><!-- /.box-body -->
           </div><!-- /. box -->
@@ -55,7 +55,7 @@
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
                 <li><a href="dashboard"><i class="fa fa-circle-o text-red"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Activity Timeline</a></li>
+                <li><a href="viewall"><i class="fa fa-circle-o text-yellow"></i> Activity Timeline</a></li>
               </ul>
             </div><!-- /.box-body -->
           </div><!-- /.box -->
@@ -90,12 +90,14 @@
             </div><!-- /.box-body -->
             <div class="box-footer">
               <div class="pull-right">
-                <button class="btn btn-default"><i class="fa fa-pencil"></i> Draft</button>
                 <button type="submit" id="" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
               </div>
+              	</form>
+                <a href= "inbox">
               <button class="btn btn-default"><i class="fa fa-times"></i> Discard</button>
+              </a>
             </div><!-- /.box-footer -->
-			</form>
+		
           </div><!-- /. box -->
         </div><!-- /.col -->
       </div><!-- /.row -->
