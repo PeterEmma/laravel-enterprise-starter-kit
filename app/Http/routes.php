@@ -22,6 +22,7 @@ Route::get('edit-records','FilesController@index');
 Route::post('newdocument','FileManagement\UploadController@upload');
 Route::post('newfolder','FileManagement\UploadController@newfolder');
 Route::post('update/{id}','FilesController@update'); // remove the id
+Route::post('share/{id}','FilesController@share');
 
 
 Route::get('/error',function(){

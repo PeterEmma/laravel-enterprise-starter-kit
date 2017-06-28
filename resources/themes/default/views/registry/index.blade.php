@@ -259,7 +259,7 @@
             <h4 class="modal-title" id="myModalLabel">{{ trans('registry/lfm.file-share') }}</h4>
           </div>
           <div class="modal-body">
-            <form action="/update/item_name" role='form' id='shareForm' name='shareForm' method='post'>
+            <form action="/share/8" role='form' id='shareForm' name='shareForm' method='post'>
               <div class="form-group" id="attachment">
                 <label for='upload' class='control-label'>{{ trans('registry/lfm.file-to') }}</label>
                 <div class="controls">
@@ -294,14 +294,14 @@
             <div class="box-body">
               <ul class="todo-list">
                 @foreach($activity as $folder_id)
-				
+                     @if($folder_id->folder_id == '/1/KDSG-HHH-1498582776631')
                     <li>                     
                       <small>{{ $folder_id->activity }} 
                       <i class="fa fa-clock-o"></i>
-					 <b>{{ $folder_id->created_at }}</b></small>
+					          <b>{{ $folder_id->created_at }}</b></small>
                       </li>             
-					  
-				@endforeach
+                        @endif
+			          	@endforeach
               </ul>
             </div><!-- /.box-body -->
           </div>

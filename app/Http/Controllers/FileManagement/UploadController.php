@@ -36,7 +36,7 @@ class UploadController extends LfmController
 		$new_folder->clearance_level= Input::get('clearance_level');
 		$new_folder->save();
 
-        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-newfolder', ['fold_name' => $new_folder->fold_name]));   
+        //Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-newfolder', ['fold_name' => $new_folder->fold_name]));   
     }
 	
 	public function share()
@@ -45,7 +45,7 @@ class UploadController extends LfmController
         $fold_name = $request->input('rename-input');
         DB::update('update folders set folder_to = ? where id = ?',[$folder_to,$id]);
 
-        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-shared', ['fold_name' => $fold_name])); 
+        //Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-shared', ['fold_name' => $fold_name])); 
     }
 	
     public function upload()
@@ -91,7 +91,7 @@ class UploadController extends LfmController
             $response = $this->useFile($new_filename);
         }
 
-        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-upload-doc', ['doc_title' => $new_document->title])); 
+       // Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-upload-doc', ['doc_title' => $new_document->title])); 
 	
         return $response;
     }
@@ -122,7 +122,7 @@ class UploadController extends LfmController
             return parent::error('invalid');
         }
         event(new ImageWasUploaded(realpath($new_file_path)));
-        Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-upload-file', ['file_name' => $new_filename])); 
+       // Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-upload-file', ['file_name' => $new_filename])); 
 
         return $new_filename;
     }

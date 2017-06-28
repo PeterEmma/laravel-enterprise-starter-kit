@@ -2,6 +2,14 @@
 
 @section('head_extra')
     <!-- jVectorMap 1.2.2 -->
+
+
+                      <script type="text/javascript" src="file-upload/scripts/jquery.min.js"></script>
+                      <script type="text/javascript" src="file-upload/scripts/jquery.form.js"></script>
+                      <script type="text/javascript" src="file-upload/scripts/upload.js"></script>
+                      <link type="text/css" rel="stylesheet" href="file-upload/style.css" />
+
+
     <link href="{{ asset("/bower_components/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css") }}" rel="stylesheet" type="text/css" />  
     @include('partials._head_extra_jstree_css')
     @include('partials._head_extra_select2_css')
@@ -129,18 +137,18 @@
       <div class="pull right">
         <div class='col-md-6'>
             <!-- SERVER HEALTH REPORT -->
-            <!-- MAP & BOX PANE -->
+            <!-- MAP & BOX PANE {{ substr($user->fold_name, 3) }} -->
           <div class="box box-primary">
             <div class="box-body no-padding">
               <div class="mailbox-read-info">
-                <h3>File Name: <b>{{ substr($user->fold_name, 3) }}</b></h3>
+                <h3>File Name: <b>{{ $user->fold_name }}</b></h3>
                 <h5>From: {{ $user->folder_by }} <i class="fa fa-user"></i> <span id="read-time" class="mailbox-read-time pull-right">{{ date('F d, Y', strtotime($user->created_at)) }}</span></h5>
               </div><!-- /.mailbox-read-info getFullNameAttribute()-->
              
               <div class="mailbox-read-message">        
                 
             
-                <object data="/docs/files{{ $user->fold_name }}/{{ $user->latest_doc }}" type="application/pdf" width="600" height="450">
+                <object data="/docs/files/1/{{ $user->fold_name }}/{{ $user->latest_doc }}" type="application/pdf" width="600" height="450">
                   <!-- support older browsers -->
                   <!-- <embed src="uploads/C_TAW12_731.pdf" type="application/pdf" width="900" height="500"/> -->
                   <!-- For those without native support, no pdf plugin, or no js -->
@@ -189,6 +197,29 @@
            
               <!-- chat item -->
         
+        
+
+
+
+
+
+
+        <center>
+            <div style="width:350px" align="center">
+                <div id='preview'></div>    
+                <form id="image_upload_form" method="post" enctype="multipart/form-data" action='file-upload/image_upload.php' autocomplete="off">
+                    <div class="browse_text">Browse Image File:</div>
+                    <div class="file_input_container">
+                        <div class="upload_button"><input type="file" name="photo" id="photo" class="file_input" /></div>
+                    </div><br clear="all">
+                </form>
+            </div>
+        </center>
+
+
+
+
+
               <!-- chat item -->
               @foreach($comments as $comment)
                 @if($comment->folder_id == $user->id)

@@ -150,9 +150,14 @@ class DashboardController extends Controller
 		$user_id = Auth::user()->email;
 		$user_id2 = 'root';
 		
+		$act = '%Forward%';
+		
+		//$folder = Folder::all();	
+		$folderactivity = DB::table('activities')->where('activity', 'like', $act)->orderBy('created_at', 'DESC')->paginate(5);
+
 		//$folder = Folder::all();	
 		$activity = DB::table('activities')->orderBy('created_at', 'DESC')->paginate(12);
-        return view('viewall', compact('users', 'page_title', 'page_description', 'activity'));
+        return view('viewall', compact('users', 'page_title', 'page_description', 'activity', 'folderactivity'));
     }
 	
 	

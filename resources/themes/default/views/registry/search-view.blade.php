@@ -18,7 +18,7 @@
       <li><a href="javascript:rename('{{ $folder->fold_name }}')"><i class="fa fa-share-square-o fa-fw"></i> Share</a></li>
         
         <li><a href="javascript:history('{{ $folder->fold_name }}')"><i class="fa fa-arrows fa-fw"></i> History</a></li>
-        <li><a href="javascript:move_to_kiv('{{ $folder->fold_name }}')"><i class="fa fa-external-link fa-fw"></i> Move</a></li>
+        <li><a href="javascript:move('{{ $folder->fold_name }}')"><i class="fa fa-external-link fa-fw"></i> Move</a></li>
         <li><a href="javascript:trash('{{ $folder->fold_name }}')"><i class="fa fa-trash fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
           </ul>
             </div>

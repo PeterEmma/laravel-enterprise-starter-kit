@@ -2,6 +2,12 @@
 
 @section('head_extra')
     <!-- jVectorMap 1.2.2 -->
+                      <script type="text/javascript" src="file-upload/scripts/jquery.min.js"></script>
+                      <script type="text/javascript" src="file-upload/scripts/jquery.form.js"></script>
+                      <script type="text/javascript" src="file-upload/scripts/upload.js"></script>
+                      <link type="text/css" rel="stylesheet" href="file-upload/style.css" />
+
+
     <link href="{{ asset("/bower_components/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css") }}" rel="stylesheet" type="text/css" />
 @endsection
 
@@ -93,9 +99,18 @@
                 <button type="submit" id="" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
               </div>
               	</form>
-                <a href= "inbox">
-              <button class="btn btn-default"><i class="fa fa-times"></i> Discard</button>
-              </a>
+                <center>
+            <div style="width:350px" align="center">
+                <div id='preview'></div>    
+                <form id="image_upload_form" method="post" enctype="multipart/form-data" action='file-upload/image_upload.php' autocomplete="off">
+                    <div class="browse_text">Browse Image File:</div>
+                    <div class="file_input_container">
+                    <!-- <div class="btn btn-default btn-file upload_button"><i class="fa fa-paperclip"></i> Attachment<input type="file" name="photo" id="photo" class="file_input" /></div>-->
+                        <div class="upload_button"><input type="file" name="photo" id="photo" class="file_input" /></div>
+                    </div><br clear="all">
+                </form>
+            </div>
+        </center>
             </div><!-- /.box-footer -->
 		
           </div><!-- /. box -->
