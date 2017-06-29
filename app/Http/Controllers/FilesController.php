@@ -15,6 +15,8 @@ use App\Comment;
 use App\Folder;
 use App\Activity;
 use App\User;
+use App\folder_request;
+use App\pin;
 use App\FolderNotification;
 use Illuminate\Support\Facades\Input;
 
@@ -226,5 +228,35 @@ class FilesController extends Controller {
 		return redirect()->back()->with('comment saved');
     }
 	
-	
+	public function requestform(){
+
+		$user = new folder_request;
+		$user->request_from= Input::get('request_from');
+		$user->foldername= Input::get('foldername');
+		$user->desc= Input::get('desc');
+		$user->save();
+
+		Flash::success('Your Request for File has been sent to Registry');
+		return redirect()->back()->with('Request Sent');
+	}
+
+
+	public function storepinform(){
+if (Input::get('new_pin') == Input::get('confirmpin')){
+		$user = new pin;
+		$user->user= Input::get('user');
+		$user->old_pin= Input::get('old_pin');
+		$user->new_pin= Input::get('new_pin');
+		$user->save();
+
+		Flash::success('Please keep your PIN from third party');
+		return redirect()->back()->with('PIN Changed');
+	}
+	else{
+		Flash::Error('Password No match in pigin');
+		return redirect()->back()->with('LOL');
+
+	}
+	}
+
 }

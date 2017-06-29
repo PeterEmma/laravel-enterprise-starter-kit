@@ -23,6 +23,8 @@ Route::post('newdocument','FileManagement\UploadController@upload');
 Route::post('newfolder','FileManagement\UploadController@newfolder');
 Route::post('update/{id}','FilesController@update'); // remove the id
 Route::post('share/{id}','FilesController@share');
+Route::post('requestform','FilesController@requestform');
+Route::post('storepinform','FilesController@storepinform');
 
 
 Route::get('/error',function(){

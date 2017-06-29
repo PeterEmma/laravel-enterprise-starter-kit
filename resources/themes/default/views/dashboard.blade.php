@@ -67,7 +67,97 @@
   <style type="text/css">
     .column{margin-top: -10px; float: right; }
   </style>
- 
+  
+  
+  
+
+<button class="btn btn-block btn-success" data-toggle="modal" data-target="#myModal" style="width: 200px;">Request for File</button>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">      
+            
+              <div class="box box-info">
+                <div class="box-header">
+                  <i class="fa fa-envelope"></i>
+                  <h3 class="box-title">Request for File</h3>
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <button class="btn btn-info btn-sm" data-dismiss="modal" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                  </div><!-- /. tools -->
+                </div>
+
+     <form method="post" id="request_form" action="requestform">
+                   {{ csrf_field() }}
+                  <div class="box-body">
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" id="request_from" value="{{ Auth::user()->email }}" name="request_from" placeholder="Request From: {{ Auth::user()->email }}"/>
+                    </div> 
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="foldername" name="foldername" placeholder="File No/ Name"/>
+                    </div>
+                    <div>
+                      <textarea class="textarea" name="desc" id="desc" placeholder="Full Description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    </div>
+                </div>
+                <div class="box-footer clearfix">
+                  <button class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+                </div>
+    </form>
+
+              </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<button class="btn btn-block btn-success" data-toggle="modal" data-target="#myModal2" style="width: 200px;">Create PIN</button>
+
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog" style="width: 400px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">      
+            
+              <div class="box box-info">
+                <div class="box-header">
+                  <i class="fa fa-key"></i>
+                  <h3 class="box-title">Create/ Change PIN</h3>
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <button class="btn btn-info btn-sm" data-dismiss="modal" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                  </div><!-- /. tools -->
+                </div>
+
+        <form method="post" id="pin_form" action="storepinform">
+                 {{ csrf_field() }}
+                <div class="box-body">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="new_pin" name="new_pin" placeholder="New PIN"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="confirmpin" name="confirmpin" placeholder="confirm PIN"/>
+                    </div>
+                </div>
+                <div class="box-footer clearfix">
+                  <button class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+                </div>
+        </form>
+
+              </div>     
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  
     <div class='row pull right'>
   
         <div class='col-md-3 pull-left'>
