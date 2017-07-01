@@ -53,67 +53,135 @@
     .column{margin-top: -10px; float: right; }
   </style>
  
-    <div class='row pull right'>
-      <div class="pull right">
-        <div class='col-md-6'>
-            <!-- SERVER HEALTH REPORT -->
-		<div id="activity-timeline" class="box box-primary">
-            <div class="box-header">
-              <i class="ion ion-clipboard"></i>
-              <h3 class="box-title"><b>MyActivity Timeline</b></h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-              <ul class="todo-list">
-                @foreach($activity as $activity_by)
-        @if($activity_by->activity_by == Auth::user()->email || Auth::user()->username)
-                    <li>                     
-                      <small>{{ $activity_by->activity }}
-                      <i class="fa fa-clock-o"></i>
-           <b>{{ date('F d, Y', strtotime($activity_by->created_at )) }}</b></small>
-                      </li>
-                      
-               @endif
-        @endforeach
+            <section class="content">
+
+          <!-- row -->
+          <div class="row">
+            <div class="col-md-12">
+              <!-- The time line -->
+              <ul class="timeline">
+                <!-- timeline time label -->
+                <li class="time-label">
+                  <span class="bg-red">
+                    <?php echo date("l"). ", "; echo date('d M Y');?>
+                  </span>
+                </li>
+                <!-- /.timeline-label -->
+
+        @foreach($activity as $activity_by)
+
+
+
+                <?php
+                if (strpos($activity_by->activity, 'Comment') !== false) {
+                echo '
+                <li>
+                  <i class="fa fa-comments bg-yellow"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> '.date('H:i A | F d, Y', strtotime($activity_by->created_at )).'</span>
+                    <h3 class="timeline-header"><a href="#">'.Auth::user()->first_name.' '.Auth::user()->last_name.'</a> '.$activity_by->activity.'</h3>
+                    <div class="timeline-body">
+                       '.Str_limit($activity_by->comment, 250).'
+                    </div>
+                    <div class="timeline-footer">
+                      <a class="btn btn-primary btn-xs">Read more</a>
+                    </div>
+                  </div>
+                </li>';
+                  }
+
+                elseif (strpos($activity_by->activity, 'login') !== false) {
+                echo '
+                <li>
+                  <i class="fa fa-user bg-aqua"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> '.date('H:i A | F d, Y', strtotime($activity_by->created_at )).'</span>
+                    <h3 class="timeline-header no-border"><a href="#">'.Auth::user()->first_name.' '.Auth::user()->last_name.'</a> '.$activity_by->activity.'</h3>
+                  </div>
+                </li>';
+                  }
+
+
+
+
+               elseif (strpos($activity_by->activity, 'Forward') !== false) {
+                echo '
+                <li>
+                  <i class="fa fa-folder bg-purple"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> '.date('H:i A | F d, Y', strtotime($activity_by->created_at )).'</span>
+                    <h3 class="timeline-header"><a href="#">'.Auth::user()->first_name.' '.Auth::user()->last_name.'</a> '.$activity_by->activity.'</h3>
+                    <div class="timeline-body">
+                      <img src="'.asset('/img/folder.png').'" width="150" alt="folder" class="margin" /><b>'.$activity_by->fileinfo.'</b>
+                    </div>
+                  </div>
+                </li>';
+                  }
+
+                  elseif (strpos($activity_by->activity, 'document') !== false) {
+                echo '
+                <li>
+                  <i class="fa fa-cloud-upload bg-purple"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> '.date('H:i A | F d, Y', strtotime($activity_by->created_at )).'</span>
+                    <h3 class="timeline-header"><a href="#">'.Auth::user()->first_name.' '.Auth::user()->last_name.'</a> '.$activity_by->activity.'</h3>
+                    <div class="timeline-body">
+                      <i class="fa fa fa-file-pdf-o fa-5x"></i><b>'.$activity_by->fileinfo.'</b>
+                    </div>
+                  </div>
+                </li>';
+                  }
+
+
+
+                ?>
+
+
+
+
+
+<!-- 
         
-              </ul>
-<?php echo $activity->render(); ?>
-   </div><!-- /.box-body -->
-        </div><!-- /.box -->   
-      <!-- PROJECT STATUS -->
-      </div><!-- /.col md-->
+                if (strpos($activity_by->activity, 'login') !== false) {
+                echo '
+                <li>
+                  <i class="fa fa-envelope bg-blue"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                    <div class="timeline-body">
+                      Take me to your leader!
+                      Switzerland is small and neutral!
+                      We are more like Germany, ambitious and misunderstood!
+                    </div>
+                    <div class='timeline-footer'>
+                      <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                    </div>
+                  </div>
+                </li>';
+                  }
+/.content -->
 
 
-              <div class='col-md-5'>
-            <!-- SERVER HEALTH REPORT -->
-          <div id="activity-timeline" class="box box-primary">
-            <div class="box-header">
-              <i class="ion ion-clipboard"></i>
-              <h3 class="box-title"><b>MYActivity on Folder</b></h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-              <ul class="todo-list">
-                @foreach($folderactivity as $activity_by)
-        @if($activity_by->activity_by == Auth::user()->email || Auth::user()->username)
-                    <li>                     
-                      <small>{{ $activity_by->activity }}
-                      <i class="fa fa-clock-o"></i>
-           <b>{{ date('F d, Y', strtotime($activity_by->created_at )) }}</b></small>
-                      </li>
-                      
-               @endif
+
+
+
+
+
+
+  
+
+
+
+
+
         @endforeach
-              </ul>
-               <div class="box-footer text-center">
-                  <?php echo $folderactivity->render(); ?>
-                </div><!-- /.box-footer -->
-            </div><!-- /.box-body -->
-            </div><!-- /.box -->   
-      <!-- PROJECT STATUS -->
-      </div><!-- /.col md-->
-      </div>  
 
-    
-      </div><!-- /.row -->
+              </ul>
+             <div align="center"> <?php echo $activity->render(); ?></div>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
 
     {{-- <script>
     // Work on this later. Fix like on Linked in

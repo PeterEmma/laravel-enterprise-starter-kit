@@ -116,6 +116,7 @@ class FilesController extends Controller {
 		$activity->activity_by= Input::get('comment_by');
 		$activity->folder_id= Input::get('folder_id');
 		$activity->activity= Input::get('activity');
+		$activity->comment= Input::get('comment');
 		$activity->save();
 		
 		//return 'session';
@@ -206,6 +207,7 @@ class FilesController extends Controller {
         $shareInput = $receiver_email;
         $activity->activity_by= Input::get('comment_by');
         $activity->folder_id= Input::get('fold_name');
+		//$activity->fileinfo= Input::get('fileinfo');
         $activity->activity= Input::get('activity'). $shareInput;
         $activity->save();        // create a notification and save to database
       

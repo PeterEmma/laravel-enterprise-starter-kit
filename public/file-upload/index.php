@@ -4,7 +4,7 @@ include_once("db_connect.php");
 session_start();
 $session_id='1'; 
 ?>
-<title>phpzag.com : Demo of Image Upload without Page Refresh with PHP and jQuery</title>
+<title>Image Upload</title>
 <?php include('container.php');?>
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/jquery.form.js"></script>
