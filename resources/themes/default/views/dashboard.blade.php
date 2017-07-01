@@ -2,14 +2,10 @@
 
 @section('head_extra')
     <!-- jVectorMap 1.2.2 -->
-
-
-                      <script type="text/javascript" src="file-upload/scripts/jquery.min.js"></script>
-                      <script type="text/javascript" src="file-upload/scripts/jquery.form.js"></script>
-                      <script type="text/javascript" src="file-upload/scripts/upload.js"></script>
-                      <link type="text/css" rel="stylesheet" href="file-upload/style.css" />
-
-
+    <script type="text/javascript" src="file-upload/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="file-upload/scripts/jquery.form.js"></script>
+    <script type="text/javascript" src="file-upload/scripts/upload.js"></script>
+    <link type="text/css" rel="stylesheet" href="file-upload/style.css" />
     <link href="{{ asset("/bower_components/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css") }}" rel="stylesheet" type="text/css" />  
     @include('partials._head_extra_jstree_css')
     @include('partials._head_extra_select2_css')
@@ -282,71 +278,58 @@
               </div>
             </div>
         
-            <div class="box-body chat" id="chat-box">
-              <!-- chat item -->
-           
-              <!-- chat item -->
-        
-        
+      <div class="box-body chat" id="chat-box">
+        <!-- chat item -->
+        <!-- chat item -->
+				<center>
+					<div style="width:350px" align="center">
+						<div id='preview'></div>    
+						<form id="image_upload_form" method="post" enctype="multipart/form-data" action='file-upload/image_upload.php' autocomplete="off">
+							<div class="browse_text">Browse Image File:</div>
+							<div class="file_input_container">
+								<div class="upload_button"><input type="file" name="photo" id="photo" class="file_input" /></div>
+							</div><br clear="all">
+						</form>
+					</div>
+				</center>
 
-
-
-
-
-
-        <center>
-            <div style="width:350px" align="center">
-                <div id='preview'></div>    
-                <form id="image_upload_form" method="post" enctype="multipart/form-data" action='file-upload/image_upload.php' autocomplete="off">
-                    <div class="browse_text">Browse Image File:</div>
-                    <div class="file_input_container">
-                        <div class="upload_button"><input type="file" name="photo" id="photo" class="file_input" /></div>
-                    </div><br clear="all">
-                </form>
-            </div>
-        </center>
-
-
-
-
-
-              <!-- chat item -->
-              @foreach($comments as $comment)
-                @if($comment->folder_id == $user->id)
-                  <div class="item">
-                    <!-- @cpnwaugha: c-e: Fetching the user's image. Change to fetch uploaded image -->
-                    {{--<img src="{{ Gravatar::get(Auth::user()->email), 'tiny'}}" class="offline" alt="User Image"/>--}}
-                    <img src="/img/profile_picture/photo/{{ Auth::user()->avatar }}" class="offline" style="width: 42px; height: 42px; top: 10px; left: 10px; border-radius: 50%;" alt="User Image"/>
-                    <!--<img src="{{ asset("/bower_components/admin-lte/dist/img/user2-160x160.jpg") }}" alt="user image" class="offline"/>-->
-                    <p class="message">
-                      <a href="#" class="name"> <!-- @cpnwaugha: c-e: comments to have date and time -->
-                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{ date('F d, Y', strtotime($comment->created_at)) }}</small> 
-                        {{ $comment->comment_by }}
-                      </a>
-                      {{ $comment->comment }}
-                    </p>
-                  </div><!-- We would like to meet you to discuss the latest news about
-                      the arrival of the new theme. They say it is going to be one the
-                      best themes on the market -->
-                @endif
-              @endforeach
-            </div>
-
-            <!-- Form to receive user's comment.-->
-            <form action="comment" id="commentForm" method="post" enctype="multipart/form-data">
-              <input type="hidden" id="comment_by" name="comment_by" value="{{ Auth::user()->email }}">
-              <input type="hidden" id="folder_id" name="folder_id" value="{{ $user->id }}">
-              <input type="hidden" id="activity" name="activity" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} Comment on {{ substr($user->fold_name, 3) }}">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <div class="box-footer">
-                <div class="input-group">
-                  <input class="form-control" id="comment" name="comment" placeholder="Type message..."/>
-                  <div class="input-group-btn">
-                    <button id="submitBtn" class="btn btn-primary"><i class="fa fa-plus"> Post</i></button>
-                  </div>
-                </div>
+			  <!-- chat item -->
+        <div id="reload_comment">
+          @foreach($comments as $comment)
+            @if($comment->folder_id == $user->id)
+              <div class="item">
+              <!-- @cpnwaugha: c-e: Fetching the user's image. Change to fetch uploaded image -->
+              {{--<img src="{{ Gravatar::get(Auth::user()->email), 'tiny'}}" class="offline" alt="User Image"/>--}}
+              <img src="/img/profile_picture/photo/{{ Auth::user()->avatar }}" class="offline" style="width: 42px; height: 42px; top: 10px; left: 10px; border-radius: 50%;" alt="User Image"/>
+              <!--<img src="{{ asset("/bower_components/admin-lte/dist/img/user2-160x160.jpg") }}" alt="user image" class="offline"/>-->
+              <p class="message">
+                <a href="#" class="name"> <!-- @cpnwaugha: c-e: comments to have date and time -->
+                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{ date('F d, Y', strtotime($comment->created_at)) }}</small> 
+                {{ $comment->comment_by }}
+                </a>
+                {{ $comment->comment }}
+              </p>
               </div>
-            </form>
+            @endif
+          @endforeach
+        </div>
+      </div>
+
+		<!-- Form to receive user's comment.-->
+		<form action="comment" id="commentForm" method="post" enctype="multipart/form-data">
+		  <input type="hidden" id="comment_by" name="comment_by" value="{{ Auth::user()->email }}">
+		  <input type="hidden" id="folder_id" name="folder_id" value="{{ $user->id }}">
+		  <input type="hidden" id="activity" name="activity" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} Comment on {{ substr($user->fold_name, 3) }}">
+		  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+		  <div class="box-footer">
+			<div class="input-group">
+			  <input class="form-control" id="comment" name="comment" placeholder="Type message..."/>
+			  <div class="input-group-btn">
+				<button id="submitBtn" class="btn btn-primary"><i class="fa fa-plus"> Post</i></button>
+			  </div>
+			</div>
+		  </div>
+		</form>
 
         
     <div class="box-footer">
@@ -363,13 +346,10 @@
               <input id="" class="form-control" name="share-input" placeholder="Recipient Email...">
             </div> --}}
 
-
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
              <label>Enter Recipient Email:</label>        
              <select id="forward_to_user" class="select-with-search form-control pmd-select2" name="share-input" placeholder="Recipient Email..."></select>
            </div> 
-           
-
               <div class="input-group-btn">
                 <button id='forwardBtn' class="btn btn-success"><i class="fa fa-share"></i> Forward</button>
               </div>
@@ -381,11 +361,7 @@
               
               <!-- Main content -->
     </div><!-- /.box -->
-      
-            
-        
-    
-            <!-- PROJECT STATUS -->
+      <!-- PROJECT STATUS -->
       </div><!-- /.col md-->
     
     <div class='col-md-3'>

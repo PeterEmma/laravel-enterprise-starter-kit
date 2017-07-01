@@ -14,6 +14,7 @@
 
 Route::get('read', 'FilesController@read');
 Route::post('comment', 'FilesController@comment');
+Route::post('ajaxcomment', ['as' => 'ajaxcomment', 'uses' => 'FilesController@comment']);
 
 Route::get('show-message/{id}','FilesController@show_message');
 Route::post('edit/{id}','FilesController@edit');

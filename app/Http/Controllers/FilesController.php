@@ -124,7 +124,31 @@ class FilesController extends Controller {
 		$data = array('activity'=>$activity, 'comment'=>$comment);
 		return response()->json($data);
 		//return redirect()->back()->with($data); //json_encode($data);// 
+
+		// Add audit to most of the methods defined here.
     }
+
+	public function ajaxComment(){
+		
+		$comment = new Comment;
+		$comment->folder_id= request('folder_id');
+		$comment->comment_by= request('comment_by');	
+		$comment->comment= request('comment');
+		$comment->save();
+		
+		$activity = new Activity;
+		$activity->activity_by= request('comment_by');
+		$activity->folder_id= request('folder_id');
+		$activity->activity= request('activity');
+		$activity->save();
+		
+		//return 'session';
+		Flash::success('Your comment has been added to the File successfully');
+
+		$data = array('activity'=>$activity, 'comment'=>$comment);
+		return response()->json($data);
+		//return redirect()->back()->with($data); //json_encode($data);//
+	}
 	
     public function store(Request $request)
     {

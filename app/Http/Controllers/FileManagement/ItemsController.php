@@ -15,6 +15,9 @@ class ItemsController extends LfmController
      *
      * @return mixed
      */
+
+    private $show_list;
+
     public function getItems()
     {
         $path = parent::getCurrentPath();
@@ -22,30 +25,29 @@ class ItemsController extends LfmController
 
         $keyword = '%'.request('keyword').'%';
 
-		$folders = DB::select('select * from folders where fold_name like ? ', [$keyword]);
-        // $count = DB::select('select count(*) from folders where fold_name like ? ', [$keyword]);
-
-        // $temp = array();
-        // foreach($count_array as $field => $val ){
-        //     $temp[$field] = $val;
-        // }
-        // $count = $temp['count(*)'];
+        $show_list = request('show_list'); // this is needed so as not to unnecessarily query the database.
+        $folders = '';
+        $count = '';
+        
+        if($show_list === "2"){
+            $folders =DB::table('folders')->where('fold_name', 'like', $keyword)->get();
+            //$count = DB::select('select * from folders where fold_name like ? ', [$keyword])->count();
+            $count = count($folders);
+        }
 
         $files = parent::sortFilesAndDirectories(parent::getFilesWithInfo($path), $sort_type);
         $directories = parent::sortFilesAndDirectories(parent::getDirectories($path), $sort_type);
         $working_dir = parent::getInternalPath($path);
-
 
         return [
             'html' => (string)view($this->getView())->with([
                 'files'       => $files,
                 'directories' => $directories,
 				'folders'     => $folders,
-                // 'count'       => $count,
+                'count'       => $count,
                 'items'       => array_merge($directories, $files)
             ]),
-            'working_dir' => $working_dir,
-            'pages' => 1
+            'working_dir' => $working_dir
         ];
     }
 
@@ -55,14 +57,10 @@ class ItemsController extends LfmController
         $view_type = 'grid';
         $show_list = request('show_list');
 
-        if ($show_list === "3") {
-            $view_type = 'search';
-            return 'registry.' . $view_type . '-view';
-        }  
         if ($show_list === "2") {
             $view_type = 'search';
-            return 'registry.' . $view_type . '-list';
-        } 
+            return 'registry.' . $view_type . '-view';
+        }   
         elseif ($show_list === "1") {
             $view_type = 'list';
         } elseif (is_null($show_list)) {
