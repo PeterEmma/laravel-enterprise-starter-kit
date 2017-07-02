@@ -1,73 +1,25 @@
 <script type="text/javascript">    
     $(function(){
 
-      // $('form#commentForm').on('submit', function(){
-          // console.log('1 comment posted');
-       //});
 
-       function commentRefresh(view = ''){
-           //var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-           $.ajax({
-               url:"fetch_comments",
-               method:"GET",
-               dataType:"json",
-               success:function(returnData)
-               {
-                   var notif_count = returnData.notif_count;
-                   $('#folder_notif').html(notif_count);
-                   //console.log('Working, data.count is: '+ notif_count);
+        
 
-                   if(notif_count === 0){
-                       $('#folder_notif').removeClass('label-danger');
-                       $('#folder_notif_icon').removeClass('fa-folder-open-o').addClass('fa-folder-o');
-                   }
-                   else{
-                       $('#folder_notif').addClass('label-danger');
-                       $('#folder_notif_icon').removeClass('fa-folder-o').addClass('fa-folder-open-o');
-                   }
-               },
-               error:function(){
-                   console.log('error connecting to fetch folder notification');
-               }
-           });
-       }
-
-       commentRefresh();
+       // refreshCommenDiv();
        
-       setInterval(function(){
-           commentRefresh(); // refresh page every 5 sec.       
-        }, 2000);
-       $('button#submitBtn').on('click', function(e){
-           e.preventDefault();
-           e.stopPropagation();
-           var folder_id = $('#folder_id').val();
-           var comment_by= $('#comment_by').val();
-           var activity = $('#activity').val();
-           var comment = $('#comment').val();
+       //setInterval(function(){
+        //   refreshCommenDiv(); // refresh page every sec.       
+        //}, 1000); 
 
-           $.ajax({
-               url:"ajaxcomment",
-               method:"GET",
-               dataType:"json",
-               success:function(returnData)
-               {
-                   console.log('connecting to comment');
-                   $("#chat-box").load(location.href+" #chat-box>*","");
-               },
-               error:function(){
-                   console.log('error connecting to comment');
-               }
-           });
+       $.ajaxSetup({
+           headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
        });
-       //$.ajaxSetup({
-       //    headers: {
-       //        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       //    }
-       //});
+       
        
        var temp = 0;
        function pageRefresh(view = ''){
-           //var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+           
            $.ajax({
                url:"folder_notification",
                method:"GET",
@@ -119,8 +71,8 @@
        pageRefresh();
        
        setInterval(function(){
-           pageRefresh(); // refresh page every 5 sec.       
-        }, 2000);        // for forward button.
+           pageRefresh(); // refresh page every sec.       
+        }, 1000);        // for forward button.
        $('#forwardBtn').on('click', function(e){            //e.preventDefault();
            //e.stopPropagation();
            //console.log('Working');

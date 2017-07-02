@@ -6,7 +6,7 @@ $session_id='1';
 ?>
 <title>Image Upload</title>
 <?php include('container.php');?>
-<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript" src="scripts/jquery.form.js"></script>
 <script type="text/javascript" src="scripts/upload.js"></script>
 <link type="text/css" rel="stylesheet" href="style.css" />

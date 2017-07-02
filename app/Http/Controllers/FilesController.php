@@ -131,22 +131,25 @@ class FilesController extends Controller {
 
 	public function ajaxComment(){
 		
+		// fetch the values from the comment form.
 		$comment = new Comment;
-		$comment->folder_id= request('folder_id');
-		$comment->comment_by= request('comment_by');	
-		$comment->comment= request('comment');
+		$comment->folder_id  = request('folder_id');
+		$comment->comment_by = request('comment_by');	
+		$comment->comment    = request('comment');
 		$comment->save();
 		
 		$activity = new Activity;
-		$activity->activity_by= request('comment_by');
-		$activity->folder_id= request('folder_id');
-		$activity->activity= request('activity');
+		$activity->activity_by = $comment->comment_by; // request('comment_by');
+		$activity->folder_id   = $comment->folder_id; //request('folder_id');
+		$activity->activity    = request('activity');
+		$activity->comment     = $comment->comment ; //request('comment');
 		$activity->save();
-		
-		//return 'session';
-		Flash::success('Your comment has been added to the File successfully');
 
-		$data = array('activity'=>$activity, 'comment'=>$comment);
+		//$comments = DB::select('select * from comments');
+		$data = array('comments'=>$comment->comment);
+
+		//return 'session';
+		// Flash::success('Your comment has been added to the File successfully');
 		return response()->json($data);
 		//return redirect()->back()->with($data); //json_encode($data);//
 	}
@@ -167,12 +170,12 @@ class FilesController extends Controller {
 
 		}
 	
-	$user->save();
-	
-	return 'data saved in database';
-		/**file::create(Request::all());
-		document::create(Request::all());
-		return 'test';*/
+		$user->save();
+		
+		return 'data saved in database';
+			/**file::create(Request::all());
+			document::create(Request::all());
+			return 'test';*/
     }
 	
 	public function update(Request $request, $id)
@@ -268,21 +271,21 @@ class FilesController extends Controller {
 
 
 	public function storepinform(){
-if (Input::get('new_pin') == Input::get('confirmpin')){
-		$user = new pin;
-		$user->user= Input::get('user');
-		$user->old_pin= Input::get('old_pin');
-		$user->new_pin= Input::get('new_pin');
-		$user->save();
+		if (Input::get('new_pin') == Input::get('confirmpin')){
+			$user = new pin;
+			$user->user= Input::get('user');
+			$user->old_pin= Input::get('old_pin');
+			$user->new_pin= Input::get('new_pin');
+			$user->save();
 
-		Flash::success('Please keep your PIN from third party');
-		return redirect()->back()->with('PIN Changed');
-	}
-	else{
-		Flash::Error('Password No match in pigin');
-		return redirect()->back()->with('LOL');
+			Flash::success('Please keep your PIN from third party');
+			return redirect()->back()->with('PIN Changed');
+		}
+		else{
+			Flash::Error('Password No match in pigin');
+			return redirect()->back()->with('LOL');
 
-	}
+		}
 	}
 
 }

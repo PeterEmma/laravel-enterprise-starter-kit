@@ -2,10 +2,6 @@
 
 @section('head_extra')
     <!-- jVectorMap 1.2.2 -->
-    <script type="text/javascript" src="file-upload/scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="file-upload/scripts/jquery.form.js"></script>
-    <script type="text/javascript" src="file-upload/scripts/upload.js"></script>
-    <link type="text/css" rel="stylesheet" href="file-upload/style.css" />
     <link href="{{ asset("/bower_components/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css") }}" rel="stylesheet" type="text/css" />  
     @include('partials._head_extra_jstree_css')
     @include('partials._head_extra_select2_css')
@@ -36,36 +32,41 @@
   
   <script>
 
-   $( function() {
+    $( function() {
      var availableTags = [
+        "Select Recipients",
          @foreach($users as $user)  
             "{{ $user->first_name }}, {{ $user->last_name }}",
          @endforeach
          ""
        ];
        // @if($user->position){{$user->position}} - @endif
-     availableTags.splice(0, 0,'Select Recipient');
 
-     $(".js-parents").select2();
-     $("#forward_to_user").select2({
-       theme: "bootstrap",
-       placeholder: "Select Recipient",
-       //minimumInputLength: 3,
-       allowClear: true,
-       data: availableTags,
-       tags: false
-     });
+      //availableTags.splice(0, 0,'Select Recipient');
 
-   });
-
+      $(".js-parents").select2();
+      $("#forward_to_user").select2({
+        theme: "bootstrap",
+        placeholder: "Select Recipient",
+        //minimumInputLength: 3,
+        allowClear: true,
+        data: availableTags,
+        tags: false
+      });
+   })
  </script>
 
   <style type="text/css">
     .column{margin-top: -10px; float: right; }
   </style>
-  
-  
-  
+
+  {{-- <script type="text/javascript" src="file-upload/scripts/jquery.min.js"></script> --}}
+  <script type="text/javascript" src="{{ asset("file-upload/scripts/jquery.form.js") }}"></script>
+  <script type="text/javascript" src="{{ asset("file-upload/scripts/upload.js") }}"></script>
+  <link type="text/css" rel="stylesheet" href="{{ asset("file-upload/style.css") }}" />
+
+  <script type="text/javascript" src="{{ asset("bower_components/admin-lte/plugins/moment/moment.min.js") }}"></script>
+
 
 <button class="btn btn-block btn-success" data-toggle="modal" data-target="#myModal" style="width: 200px;">Request for File</button>
 
@@ -75,41 +76,38 @@
       <!-- Modal content-->
       <div class="modal-content">      
             
-              <div class="box box-info">
-                <div class="box-header">
-                  <i class="fa fa-envelope"></i>
-                  <h3 class="box-title">Request for File</h3>
-                  <!-- tools box -->
-                  <div class="pull-right box-tools">
-                    <button class="btn btn-info btn-sm" data-dismiss="modal" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                  </div><!-- /. tools -->
-                </div>
+        <div class="box box-info">
+          <div class="box-header">
+            <i class="fa fa-envelope"></i>
+            <h3 class="box-title">Request for File</h3>
+            <!-- tools box -->
+            <div class="pull-right box-tools">
+              <button class="btn btn-info btn-sm" data-dismiss="modal" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+            </div><!-- /. tools -->
+          </div>
 
-     <form method="post" id="request_form" action="requestform">
-                   {{ csrf_field() }}
-                  <div class="box-body">
-                    <div class="form-group">
-                      <input type="hidden" class="form-control" id="request_from" value="{{ Auth::user()->email }}" name="request_from" placeholder="Request From: {{ Auth::user()->email }}"/>
-                    </div> 
-                    <div class="form-group">
-                      <input type="text" class="form-control" id="foldername" name="foldername" placeholder="File No/ Name"/>
-                    </div>
-                    <div>
-                      <textarea class="textarea" name="desc" id="desc" placeholder="Full Description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                    </div>
+          <form method="post" id="request_form" action="requestform">
+              {{ csrf_field() }}
+              <div class="box-body">
+                <div class="form-group">
+                  <input type="hidden" class="form-control" id="request_from" value="{{ Auth::user()->email }}" name="request_from" placeholder="Request From: {{ Auth::user()->email }}"/>
+                </div> 
+                <div class="form-group">
+                  <input type="text" class="form-control" id="foldername" name="foldername" placeholder="File No/ Name"/>
                 </div>
-                <div class="box-footer clearfix">
-                  <button class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+                <div>
+                  <textarea class="textarea" name="desc" id="desc" placeholder="Full Description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                 </div>
-    </form>
+            </div>
+            <div class="box-footer clearfix">
+              <button class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+            </div>
+          </form>
 
-              </div>
+        </div>
       </div>
     </div>
   </div>
-
-
-
 
 <button class="btn btn-block btn-success" data-toggle="modal" data-target="#myModal2" style="width: 200px;">Create PIN</button>
 
@@ -148,11 +146,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
   
     <div class='row pull right'>
   
@@ -218,8 +211,11 @@
             </div><!-- /.box -->        
         </div><!-- /.col -->
     
+    <?php $loopindex = 0; ?>
     
     @foreach($folder as $user)
+
+      <?php $loopindex++; ?>
       <div class="pull right">
         <div class='col-md-6'>
             <!-- SERVER HEALTH REPORT -->
@@ -294,17 +290,17 @@
 				</center>
 
 			  <!-- chat item -->
-        <div id="reload_comment">
+        <div id="reload_comment{{$loopindex}}" class="divcomment">
           @foreach($comments as $comment)
             @if($comment->folder_id == $user->id)
               <div class="item">
               <!-- @cpnwaugha: c-e: Fetching the user's image. Change to fetch uploaded image -->
               {{--<img src="{{ Gravatar::get(Auth::user()->email), 'tiny'}}" class="offline" alt="User Image"/>--}}
-              <img src="/img/profile_picture/photo/{{ Auth::user()->avatar }}" class="offline" style="width: 42px; height: 42px; top: 10px; left: 10px; border-radius: 50%;" alt="User Image"/>
+              <img src="img/profile_picture/photo/{{ Auth::user()->avatar }}" class="offline" style="width: 42px; height: 42px; top: 10px; left: 10px; border-radius: 50%;" alt="User Image"/>
               <!--<img src="{{ asset("/bower_components/admin-lte/dist/img/user2-160x160.jpg") }}" alt="user image" class="offline"/>-->
               <p class="message">
                 <a href="#" class="name"> <!-- @cpnwaugha: c-e: comments to have date and time -->
-                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{ date('F d, Y', strtotime($comment->created_at)) }}</small> 
+                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{ date('M d, Y', strtotime($comment->created_at)) }}</small> 
                 {{ $comment->comment_by }}
                 </a>
                 {{ $comment->comment }}
@@ -312,11 +308,76 @@
               </div>
             @endif
           @endforeach
-        </div>
-      </div>
+        </div> <!-- end div reload_comment -->
+
+        <script>
+          $(function(){
+
+            $.ajaxSetup({
+              headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+            });
+    
+            $(document).on('click', 'button.commentrefresh', function(e){
+              e.preventDefault();
+              e.stopPropagation();
+
+              var folder_id = $('#folder_id').val();
+              var comment_by= $('#comment_by').val();
+              var activity  = $('#activity').val();
+              var comment   = $('#comment').val();
+              var data = {comment: comment, comment_by: comment_by, folder_id: folder_id, activity: activity, '_token': $('input[name=_token]').val()};
+
+              $('#comment').val('');
+
+              created_at = moment().startOf('hour').fromNow();  // an hour ago
+                    
+              var renderComment = `
+                <div class="item">
+                  <img src="img/profile_picture/photo/{{ Auth::user()->avatar }}" class="offline" style="width: 42px; height: 42px; top: 10px; left: 10px; border-radius: 50%;" alt="User Image"/>
+                  <p class="message">
+                    <a href="#" class="name"> 
+                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ${created_at}</small> 
+                    ${comment_by }
+                    </a>
+                    ${comment}
+                  </p>
+                </div>
+              `;
+              
+              $("#reload_comment{{$loopindex}}").append(renderComment); 
+
+              $.ajax({
+                  url:"ajaxcomment",
+                  method:"GET",
+                  dataType:"json",
+                  data: data,
+                  success:function(returnData)
+                  {
+                    console.log('Good, comment added to database.');
+                  },
+                  error:function()
+                  {
+                    console.log('Bad, not connected');
+                  }
+              });
+
+              $.toast({
+                    heading: 'File comment',
+                    text: 'New comment added to file',
+                    icon: 'success',
+                    bgColor: '#E01A31',
+                    hideAfter: 5000,
+                    showHideTransition: 'slide',
+                    loader: false,        // Change it to false to disable loader
+                    loaderBg: '#9EC600'  // To change the background
+                });
+            });
+          })
+      </script>
+      </div> <!-- end div chat-box -->
 
 		<!-- Form to receive user's comment.-->
-		<form action="comment" id="commentForm" method="post" enctype="multipart/form-data">
+		<form action="comment" id="commentForm" class='commentFormClass' method="post" enctype="multipart/form-data">
 		  <input type="hidden" id="comment_by" name="comment_by" value="{{ Auth::user()->email }}">
 		  <input type="hidden" id="folder_id" name="folder_id" value="{{ $user->id }}">
 		  <input type="hidden" id="activity" name="activity" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} Comment on {{ substr($user->fold_name, 3) }}">
@@ -325,7 +386,7 @@
 			<div class="input-group">
 			  <input class="form-control" id="comment" name="comment" placeholder="Type message..."/>
 			  <div class="input-group-btn">
-				<button id="submitBtn" class="btn btn-primary"><i class="fa fa-plus"> Post</i></button>
+				<button id="submitPostBtn" class="btn btn-primary commentrefresh"><i class="fa fa-plus"> Post</i></button>
 			  </div>
 			</div>
 		  </div>
@@ -389,7 +450,7 @@
       </div>  
     @endforeach
     
-      </div><!-- /.row -->
+  </div><!-- /.row -->
 
     {{-- <script>
     // Work on this later. Fix like on Linked in

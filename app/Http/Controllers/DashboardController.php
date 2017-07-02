@@ -83,6 +83,12 @@ class DashboardController extends Controller
 		$comments = DB::select('select * from comments');
         return view('dashboard', compact('users', 'page_title', 'page_description', 'folder', 'file', 'comments', 'activity'));
     }
+
+	public function commentRefresh(){
+
+		$data = array('activity'=>'My activity', 'comment'=>'My comment');
+		return response()->json($data);
+	}
 	
 	public function store_memo()
     {  
