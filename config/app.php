@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => env('app.timezone', 'UTC'),
+    'timezone' => env('app.timezone', 'Africa/Lagos'),
 
     /*
     |--------------------------------------------------------------------------

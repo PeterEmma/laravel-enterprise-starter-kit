@@ -40,6 +40,20 @@
 
                     @if ( Setting::get('app.notification_area') )
                         <!-- Messages: style can be found in dropdown.less-->
+
+                        <li class="">
+                           <!-- Menu toggle button -->
+                           <a href="#" class="btn btn-block btn-info" title="Request file" data-toggle="modal" data-target="#myModal">
+                               <i id="" class="fa fa-file"></i>
+                           </a>
+                       </li>                        
+                       <li class="">
+                           <!-- Menu toggle button -->
+                            <a href="#" class="btn btn-block btn-success" title="Create Pin" data-toggle="modal" data-target="#myModal2">
+                               <i class="fa fa-key"></i>
+                           </a>
+                       </li>
+
                         <li class="dropdown messages-menu">
                             <!-- Menu toggle button -->
                              <a href="#" id="memo_toggle" class="dropdown-toggle" data-toggle="dropdown">
