@@ -42,13 +42,13 @@
                         <!-- Messages: style can be found in dropdown.less-->
 
                         <li class="">
-                           <!-- Menu toggle button -->
+                           <!-- Request File button -->
                            <a href="#" class="btn btn-block btn-info" title="Request file" data-toggle="modal" data-target="#myModal">
                                <i id="" class="fa fa-file"></i>
                            </a>
                        </li>                        
                        <li class="">
-                           <!-- Menu toggle button -->
+                           <!-- Create Pin button -->
                             <a href="#" class="btn btn-block btn-success" title="Create Pin" data-toggle="modal" data-target="#myModal2">
                                <i class="fa fa-key"></i>
                            </a>
@@ -101,9 +101,9 @@
                          @if(Auth::user()->isRoot())
                             <li class="dropdown notifications-menu">
                                 <!-- Menu toggle button -->
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o"></i>
-                                    <span class="label label-warning">10</span>
+                                <a href="#" id="request_file_toggle" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                                    <span id='request_file_notif' class="label label-warning"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="header">Folder Requests</li>

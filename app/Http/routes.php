@@ -86,9 +86,11 @@ Route::group(['middleware' => 'authorize'], function () {
     //Notifications
     Route::get( 'folder_notification',['as' => 'folder_notification',  'uses' => 'FolderNotificationController@fetch']);
     Route::get( 'memo_notification',  ['as' => 'memo_notification',    'uses' => 'MemoNotificationController@fetch']);
+    Route::get( 'request_file_notification',  ['as' => 'request_file_notification',    'uses' => 'RequestFileNotificationController@fetch']);
 
     Route::get( 'notif_seen', ['as' => 'notif_seen',  'uses' => 'FolderNotificationController@notificationseen']);
     Route::get( 'memo_seen',  ['as' => 'memo_seen',   'uses' => 'MemoNotificationController@notificationseen']);
+    Route::get( 'request_file_seen',  ['as' => 'request_file_seen',   'uses' => 'RequestFileNotificationController@notificationseen']);
     
     Route::get( 'scandir',    ['as' => 'scandir',    'uses' => 'FileManagement\SearchFolderController@scanDirectory']);
     

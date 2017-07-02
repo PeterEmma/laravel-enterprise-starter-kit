@@ -67,6 +67,30 @@
                    console.log('error connecting to fetch memo notification');
                }
            });
+
+           $.ajax({
+               url:"request_file_notification",
+               method:"GET",
+               dataType:"json",
+               success:function(returnData)
+               {
+                   var file_request_count = returnData.file_request_count;
+                   $('#request_file_notif').html(file_request_count);
+                   //console.log('Working, data.count is: '+ notif_count);
+
+                   if(file_request_count === 0){
+                       $('#request_file_notif').removeClass('label-warning');
+                       $('#request_file_notif').removeClass('fa-bell-o').addClass('fa-bell-slash-o');
+                   }
+                   else{
+                       $('#request_file_notif').addClass('label-warning');
+                       $('#request_file_notif').removeClass('fa-bell-slash-o').addClass('fa-bell-o');
+                   }
+               },
+               error:function(){
+                   console.log('error connecting to request file notification');
+               }
+           });
        }
        pageRefresh();
        
@@ -104,7 +128,22 @@
                    // perform actions...
                },
                error:function(){
-                   console.log('error, connecting to notification controller ');
+                   console.log('error, connecting to memo notification controller ');
+               }
+           });
+       });
+
+       $('#request_file_toggle').on("click", function(){
+           $.ajax({
+               url:"request_file_seen",
+               method:"GET",
+               dataType:"json",
+               success:function(data)
+               {
+                   // perform actions...
+               },
+               error:function(){
+                   console.log('error, connecting to request notification controller ');
                }
            });
        });
