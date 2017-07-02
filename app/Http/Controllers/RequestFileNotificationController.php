@@ -23,7 +23,7 @@ class RequestFileNotificationController extends Controller
         $user = Auth::user();
         //$notif_count = DB::select('select count(*) from folder_notifications where status=0');
         
-        $file_request_count = RequestFileNotification::where('receiver_id', '=', Auth::user()->id)
+        $file_request_count = RequestFileNotification::where('receiver_roles', '>', 1)
             ->where('status', '=', 0)
             ->orderBy('created_at', 'desc')
             ->count();
@@ -35,10 +35,10 @@ class RequestFileNotificationController extends Controller
     // user has seen notification, turn status to 1
     public function notificationseen(Request $request)
     {
-        $receiver_id =  Auth::user()->id;
+        $receiver_roles =  Auth::user()->roles->count();
         
         $status = 0;
-        $notifications = DB::select('select * from request_file_notifications where receiver_id = ? and status = ?', [$receiver_id, $status]);
+        $notifications = DB::select('select * from request_file_notifications where receiver_roles = ? and status = ?', [$receiver_roles, $status]);
 
         foreach($notifications as $notification){
             $notif_id = ((array) $notification)["id"];

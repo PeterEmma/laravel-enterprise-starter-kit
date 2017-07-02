@@ -75,7 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/js/select2.full.js")}}"  ></script>
       <script src="{{asset("/js/custom.js")}}"></script>
       <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/js/pmd-select2.js")}}"></script>
-
+      
 
 
       <!-- Optionally, you can add Slimscroll and FastClick plugins.

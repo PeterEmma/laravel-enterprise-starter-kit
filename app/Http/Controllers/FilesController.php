@@ -18,6 +18,7 @@ use App\User;
 use App\folder_request;
 use App\pin;
 use App\FolderNotification;
+use App\RequestFileNotification;
 use Illuminate\Support\Facades\Input;
 
 class FilesController extends Controller {
@@ -264,6 +265,26 @@ class FilesController extends Controller {
 		$user->foldername= Input::get('foldername');
 		$user->desc= Input::get('desc');
 		$user->save();
+
+		$sender_id = Auth::user()->id;
+		$folder_request_id = DB::table('folders')->where('fold_name', 'like', '$user->foldername')->get();
+
+		if (!$folder_request_id){
+			$folder_request_id = 1;
+		}
+		else{
+
+			$temp_arr = array();
+
+			foreach($folder_request_id as $key => $value){
+				foreach($value as $field => $data){
+					$temp_arr[$field] = $data;
+				}
+			}
+			$folder_request_id = $temp_arr['id']; // count(folder_request_id);
+		}
+
+		RequestFileNotification::create(['folder_request_id'=>$folder_request_id, 'sender_id'=>$sender_id, 'receiver_roles'=> 2]);  
 
 		Flash::success('Your Request for File has been sent to Registry');
 		return redirect()->back()->with('Request Sent');

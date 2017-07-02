@@ -2,6 +2,7 @@
 
     <!-- Header -->
     @include('partials._body_header')
+    
 
     <!-- Sidebar -->
     @include('partials._body_left_sidebar')
