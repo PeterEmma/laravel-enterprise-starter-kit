@@ -3,10 +3,7 @@
 /vendor/
 .env
 .env~
-storage/app/
-storage/debugbar/
-storage/framework/
-storage/logs/
+storage/
 
 # Package development #
 #######################
