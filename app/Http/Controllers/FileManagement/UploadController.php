@@ -26,15 +26,18 @@ class UploadController extends LfmController
 	 
 	public function newfolder()
     {
-		$new_folder = new Folder;
-		$FolderName= Input::get('add-folder-input');
-		$NewName= '/1/'.$FolderName;
-		$new_folder->id= $NewName;
-		$new_folder->fold_name= $NewName;
-		$new_folder->registry= Input::get('folder_by');
-		$new_folder->folder_by= 'registry@kdsg.gov.ng';
-		$new_folder->clearance_level= Input::get('clearance_level');
-		$new_folder->save();
+        $new_folder = new Folder;
+        $new_folder->id                 = Input::get('folder_no');
+        $new_folder->folder_no          = Input::get('folder_no');
+        $new_folder->fold_name          = Input::get('fold_name');
+        $new_folder->fold_desc          = Input::get('add_folder_description');
+        $new_folder->registry           = Input::get('folder_by');
+        $new_folder->folder_by          = 'registry@kdsg.gov.ng';
+        $new_folder->agency_dept        = Input::get('agency_dept');
+        $new_folder->category           = Input::get('category');
+        $new_folder->clearance_level    = Input::get('clearance_level');
+        $new_folder->folder_search      = $new_folder->folder_no.$new_folder->fold_name.$new_folder->fold_desc.$new_folder->agency_dept.$new_folder->category.$new_folder->clearance_level;
+        $new_folder->save();        //Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-newfolder', ['fold_name' => $new_folder->fold_name]));   
 
         //Audit::log(Auth::user()->id, trans('registry/lfm.audit-log.category'), trans('registry/lfm.audit-log.msg-newfolder', ['fold_name' => $new_folder->fold_name]));   
     }

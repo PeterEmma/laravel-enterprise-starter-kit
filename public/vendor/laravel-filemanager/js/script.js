@@ -41,23 +41,26 @@ $('#add-folder').click(function() {
 });
 
 $('#add-folder-btn').click(function() {
-    performance = new Date().getTime();
-    var foldername = $('#add-folder-input').val();
-    foldername = 'KDSG-' + foldername + '-' + performance;
-    $('#add-folder-input').val(foldername);
-    var clearance_level = $('#clearance_level').val();
+    // performance = new Date().getTime();
     var folder_by = $('#folder_by').val();
+    var foldername = $('#folder_no').val();
+    // foldername = 'KDSG-' + foldername + '-' + performance;
+
+    var fold_name = $('#fold_name').val();
+    var add_folder_description = $('#add_folder_description').val();
+    var agency_dept = $('#agency_dept').val();
+    var clearance_level = $('#clearance_level').val();
+    var category = $('#category').val();
+
     if (foldername == null) return;
     createFolder(foldername);
     $('#add-folderModal').modal('hide');
     $('#add-folder-btn').html(lang['btn-folder']).removeClass('disabled');
-
     $('#add-folderForm').ajaxSubmit({
         success: function(data, statusText, xhr, $form) {
             refreshFoldersAndItems(data);
         },
     });
-
 });
 
 $('#upload').click(function() {

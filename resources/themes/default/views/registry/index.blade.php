@@ -196,60 +196,64 @@
         </div>
       </div>
     </div>
-	{{-- eoluwafemi edit --}}
-	<div class="modal fade" id="add-folderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aia-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">{{ trans('registry/lfm.title-add-folder') }}</h4>
+    {{-- eoluwafemi edit --}}
+     <!-- Request file modal-->
+  <div class="modal fade" id="add-folderModal" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">        
+      <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa-folder"></i>
+          <h3 class="box-title">New Folder</h3>
+          <!-- tools box -->
+          <div class="pull-right box-tools">
+            <button class="btn btn-info btn-sm" data-dismiss="modal" title="Remove"><i class="fa fa-times"></i></button>
+          </div><!-- /. tools -->
+        </div>        
+        <form action="newfolder" role='form' id='add-folderForm' name='uploadForm' method='post' enctype='multipart/form-data'>
+            {{ csrf_field() }}
+            <input type='hidden' name='folder_by' id='folder_by' value='{{ Auth::user()->email }}'>
+            <div class="box-body">
+              <div class="form-group">
+                <input type="text" class="form-control" id="folder_no" name="folder_no" placeholder="File No"/>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="fold_name" name="fold_name" placeholder="File name/ Subject"/>
+              </div>               <div>
+                <textarea class="textarea" name="add_folder_description" id="add_folder_description" placeholder="Full Description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd
+
+; padding: 10px;"></textarea>
+              </div>               <div class="form-group">
+                <input type="text" class="form-control" id="agency_dept" name="agency_dept" placeholder="Agency/ Department"/>
+              </div>               <div class="form-group">
+                <select id="clearance_level" class="form-control" name="clearance_level">
+                     <option>Clearance Level</option>
+                     <option>1</option>
+                     <option>2</option>
+                     <option>3</option>
+                     <option>4</option>
+                     <option>5</option>
+                     <option>6</option>
+                     <option>7</option>
+                     <option>8</option>
+                   </select>
+              </div>
+               <div class="form-group">
+                <input type="text" class="form-control" id="category" name="category" placeholder="Category"/>
+              </div>
           </div>
-          <div class="modal-body">
-            <form action="newfolder" role='form' id='add-folderForm' name='uploadForm' method='post' enctype='multipart/form-data'>
-              <div class="form-group" id="attachment">
-                <label for='upload' class='control-label'>{{ trans('registry/lfm.message-name') }}</label>
-                <div class="controls">
-                  <div class="input-group" style="width: 100%">
-                    <input type="text" id="add-folder-input" name="add-folder-input"><br/>
-                    <input type="text" id="add-folder-file-nos" name="add-folder-file-nos"><br/>
-                    <input type="text" id="add-folder-subject" name="add-folder-subject"><br/>
-                    <textarea id="add-folder-description" placeholder="Enter folder description..."></textarea>
-                    <select id="add-folder-category" name="add-folder-category">
-                      <option>A</option>
-                      <option>B</option>
-                      <option>C</option>
-                      <option>D</option>
-                    </select>
-                    <select id="add-folder-clearance-level" name="clearance-level">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                    </select>
-						<input type="text" id="clearance_level" name="clearance_level">
-						<select>
-							<option></option>
-						</select>
-					  
-                  </div>
-                </div>
-              </div>          
-              <input type='hidden' name='folder_by' id='folder_by' value='{{ Auth::user()->email }}'>
-              <input type='hidden' name='_token' value='{{csrf_token()}}'>
-            </form>
+          <div class="box-footer clearfix">
+            <button class="pull-right btn btn-default" name="post" id="post">Create <i class="fa fa-arrow-circle-right"></i></button>
           </div>
-          <div class="modal-footer">
-		    
-			 <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('registry/lfm.btn-close') }}</button>
-            <button type="button" class="btn btn-primary" id="add-folder-btn">{{ trans('registry/lfm.btn-folder') }}</button>
-          </div>
+        </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('registry/lfm.btn-close') }}</button>
+           <button type="button" class="btn btn-primary" id="add-folder-btn">{{ trans('registry/lfm.btn-folder') }}</button>      
         </div>
-      </div>
     </div>
+  </div>
+</div>
+
 	{{-- eoluwafemi rename --}}
 	<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
