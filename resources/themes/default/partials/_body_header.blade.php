@@ -44,13 +44,13 @@
 
                         <li class="">
                            <!-- Request File button -->
-                           <a href="#" class="btn btn-block btn-info" title="Request file" data-toggle="modal" data-target="#myModal">
+                           <a href="#" class="btn btn-block btn-info" title="Request file" data-toggle="modal" data-target="#requestFileModal">
                                <i id="" class="fa fa-file"></i>
                            </a>
                        </li>                        
                        <li class="">
                            <!-- Create Pin button -->
-                            <a href="#" class="btn btn-block btn-success" title="Create Pin" data-toggle="modal" data-target="#myModal2">
+                            <a href="#" class="btn btn-block btn-success" title="Create Pin" data-toggle="modal" data-target="#createPinModal">
                                <i class="fa fa-key"></i>
                            </a>
                        </li>
@@ -103,22 +103,36 @@
                             <li class="dropdown notifications-menu">
                                 <!-- Menu toggle button -->
                                 <a href="#" id="request_file_toggle" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                                    <i id="request_file_notif_icon" class="fa fa-bell-o"></i>
                                     <span id='request_file_notif' class="label label-warning"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="header">Folder Requests</li>
+                                   
                                     <li>
                                         <!-- Inner Menu: contains the notifications -->
+                                        
                                         <ul class="menu">
+                                        <?php $folder_requests = Illuminate\Support\Facades\DB::select('select * from folder_requests order by created_at desc limit 5'); ?>
+                                        
+                                         @foreach($folder_requests as $folder_request)
+                                         <?php $user = Illuminate\Support\Facades\DB::table('users')->where('email', '=', 'root@email.com')->first();
+                                                        
+                                                        $temp = array();
+                                                        foreach($user as $field => $val ){
+                                                            $temp[$field] = $val;
+                                                        }  ?>
                                             <li><!-- start notification -->
-                                                <a href="#">
-                                                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                                <a href="viewallrequest">
+                                                    <i class="fa fa-user text-red"></i><b>{{$user->first_name}} {{$user->last_name}}</b> | {{$folder_request->foldername}}
                                                 </a>
                                             </li><!-- end notification -->
+                                             @endforeach
                                         </ul>
+                                       
                                     </li>
-                                    <li class="footer"><a href="#">View all</a></li>
+                                    
+                                    <li class="footer"><a href="viewallrequest">View all</a></li>
                                 </ul>
                             </li>
                          @endif

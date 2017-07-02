@@ -103,4 +103,22 @@ class MemoController extends Controller
         $user->save();
         return 'inbox';
     }
+
+    public function dataphp(){
+
+        $memos = DB::select('select emailfrom, subject, message from memos');
+
+        $data = array();
+        foreach( $memos as $memo => $fields ) {
+            $data[] = $fields;
+        }
+
+        $results = array(
+            "sEcho" => 1,
+            "iTotalRecords" => count($data),
+            "iTotalDisplayRecords" => count($data),
+            "aaData"=>$data);
+
+        return response()->json($results);
+    }
 }

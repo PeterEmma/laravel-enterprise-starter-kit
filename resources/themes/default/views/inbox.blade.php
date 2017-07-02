@@ -60,71 +60,63 @@
             </div><!-- /.box-body -->
           </div><!-- /.box -->
         </div><!-- /.col -->
-               <div class="col-md-9">
+            <div class="col-md-9">
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Inbox</h3>
-                  <div class="box-tools pull-right">
-                    <div class="has-feedback">
-                      <input type="text" class="form-control input-sm" placeholder="Search Mail"/>
-                      <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                    </div>
-                  </div><!-- /.box-tools -->
+
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
-                  <div class="mailbox-controls">
-                    <!-- Check all button -->
-                    <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                    <div class="btn-group">
-                      <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                      <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                      <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                    </div><!-- /.btn-group -->
-                    <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                    <div class="pull-right">
-                     
-                      <div class="btn-group">
-                        <?php echo $memos->render(); ?>
-                      </div><!-- /.btn-group -->
-                    </div><!-- /.pull-right -->
+                  
+                  <div class="container table-responsive mailbox-messages" style="width:97%;">	
+                      <div class="row">
+                        <table id="example" class="display" width="100%" cellspacing="0">
+                          <thead>
+                              <tr>
+                                  <th>emailfrom</th>
+                                  <th>subject</th>
+                                  <th>message</th>
+                              </tr>
+                          </thead>       
+                      </table>	
+                    </div>		
                   </div>
-                  <div class="table-responsive mailbox-messages">
-                    <table class="table table-hover table-striped">
-                      <tbody>
-					   @foreach($memos as $memo)
-                        <tr>
-                          <td><input type="checkbox" /></td>	  
-                          <td class="mailbox-name"><a href="read_memo/{{ $memo->id }}">{{ $memo->emailfrom}}</a></td>
-                          <td class="mailbox-subject"><b>{{ Str_limit($memo->subject, 25) }}</b> | {{ Str_limit($memo->message, 45) }}</td>
-                          <td class="mailbox-attachment"></td>
-                          <td class="mailbox-date">{{ date('F d, Y', strtotime($memo->created_at )) }}</td>
-                        </tr>
-						@endforeach
-                      </tbody>
-                    </table><!-- /.table -->
-                  </div><!-- /.mail-box-messages -->
                 </div><!-- /.box-body -->
-                <div class="box-footer no-padding">
-                  <div class="mailbox-controls">
-                    <!-- Check all button -->
-                    <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>                    
-                    <div class="btn-group">
-                      <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                      <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                      <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                    </div><!-- /.btn-group -->
-                    <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                    <div class="pull-right">
-                    
-                      <div class="btn-group">
-                        <?php echo $memos->render(); ?>
-                      </div><!-- /.btn-group -->
-                    </div><!-- /.pull-right -->
-                  </div>
-                </div>
+                
               </div><!-- /. box -->
             </div><!-- /.col -->
       </div><!-- /.row -->
-    </section><!-- /.content -->
+      
+
+
+    <script>
+      $( document ).ready(function() {	
+      var table = $('#example').DataTable( {
+        "ajax": "dataphp",
+        "bPaginate":true,
+        "bProcessing": true,
+        "pageLength": 8,
+        "columns": [
+          { mData: 'emailfrom' } ,
+          { mData: 'subject' },
+          { mData: 'message' }
+        ],
+        columnDefs: [
+            {
+                targets: [ 0, 1, 2 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
+      });	
+      setInterval( function () {
+        table.ajax.reload(null, false);
+      }, 10000 );	
+    });
+
+</script>
+
+
+
+  </section><!-- /.content -->
 @endsection
 

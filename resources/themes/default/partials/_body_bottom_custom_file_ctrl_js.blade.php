@@ -50,7 +50,7 @@
 
                        // call notification
                        count = notif_count;
-                       if (notif_count > temp){
+                       if (notif_count > temp_fn){
                             desktopNotification(event='New File', message = 'New shared folder on Desk', count);
                             temp_fn = notif_count;
                        }
@@ -84,7 +84,7 @@
 
                        // call notification
                        count = memo_count;
-                       if (memo_count > temp){
+                       if (memo_count > temp_mn){
                             desktopNotification(event='Memo shared', message = 'New memo received', count);
                             temp_mn = memo_count;
                        }
@@ -110,16 +110,16 @@
 
                    if(file_request_count === 0){
                        $('#request_file_notif').removeClass('label-warning');
-                       $('#request_file_notif').removeClass('fa-bell-o').addClass('fa-bell-slash-o');
+                       $('#request_file_notif_icon').removeClass('fa-bell-o').addClass('fa-bell-slash-o');
                        temp_rfn = 0;
                    }
                    else{
                        $('#request_file_notif').addClass('label-warning');
-                       $('#request_file_notif').removeClass('fa-bell-slash-o').addClass('fa-bell-o');
+                       $('#request_file_notif_icon').removeClass('fa-bell-slash-o').addClass('fa-bell-o');
 
                        // call notification
                        count = file_request_count;
-                       if (file_request_count > temp){
+                       if (file_request_count > temp_rfn){
                             desktopNotification(event='File Request', message = 'New File Request', count);
                             temp_rfn = file_request_count;
                        }
@@ -207,5 +207,14 @@
            }
             
        }
+
+       // hide requestFileModal
+      $('#requestFileBtn').on('click', function(){
+           $('#requestFileModal').modal('hide');
+      });
+
+      $('#createPinBtn').on('click', function(){
+           $('#createPinModal').modal('hide');
+      });
    })
 </script>

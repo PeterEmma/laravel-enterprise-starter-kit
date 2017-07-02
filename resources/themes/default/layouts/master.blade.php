@@ -50,8 +50,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset("/bower_components/admin-lte/plugins/propellerkit/components/textfield/css/textfield.css") }}"  >
     <!-- Propeller select2 -->
     <link rel="stylesheet" href="{{ asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/css/pmd-select2.css") }}" >
-
-
+    <link rel="stylesheet" type="text/css" href="{{asset('/bower_components/admin-lte/plugins/datatables/jquery.dataTables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/bower_components/admin-lte/plugins/datatables/material.min.css') }}"> 
+    <link rel="stylesheet" type="text/css" href="{{asset('/bower_components/admin-lte/plugins/datatables/dataTables.material.min.css') }}">  
+  
     
     <!-- Head -->
     @include('partials._head')
@@ -75,8 +77,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/js/select2.full.js")}}"  ></script>
       <script src="{{asset("/js/custom.js")}}"></script>
       <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/js/pmd-select2.js")}}"></script>
-      
-
+      <script type="text/javascript" src="{{ asset('/bower_components/admin-lte/plugins/datatables/jquery.dataTables.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('/bower_components/admin-lte/plugins/datatables/dataTables.material.min.js') }}"></script>
 
       <!-- Optionally, you can add Slimscroll and FastClick plugins.
             Both of these plugins are recommended to enhance the

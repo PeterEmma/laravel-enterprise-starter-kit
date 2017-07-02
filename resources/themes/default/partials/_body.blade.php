@@ -79,7 +79,7 @@ desired effect
     </div>
 
     <!-- Request file modal-->
-   <div class="modal fade" id="myModal" role="dialog">
+   <div class="modal fade" id="requestFileModal" role="dialog">
    <div class="modal-dialog">
      <!-- Modal content-->
      <div class="modal-content">         
@@ -103,14 +103,14 @@ desired effect
                </div>
            </div>
            <div class="box-footer clearfix">
-             <button class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+             <button id='requestFileBtn' class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
            </div>
          </form>        
          </div>
      </div>
    </div>
  </div><!-- Create pin modal-->
-<div class="modal fade" id="myModal2" role="dialog">
+<div class="modal fade" id="createPinModal" role="dialog">
    <div class="modal-dialog" style="width: 400px;">
    
      <!-- Modal content-->
@@ -134,7 +134,7 @@ desired effect
             </div>
         </div>
         <div class="box-footer clearfix">
-            <button class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+            <button id="createPinBtn" class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
         </div>
        </form>             
        </div>    

@@ -11,7 +11,7 @@
 
   <style type="text/css">
     #read-time{
-      color:  tomato;
+      
     }
     .box-footer{
       
@@ -19,7 +19,7 @@
     .mailbox-attachment-icon{
       width:200px !important;
       height:105px !important;
-      background-color: #efe;
+     /* background-color: #efe;*/
     }
     .mailbox-attachment-info{
       width: 200px !important;
@@ -83,7 +83,7 @@
                   {{-- auto fetch the users in the department--}}
                   <span class="label label-primary">15 users online</span>
                   <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                  <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  {{-- <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> --}}
               </div>
           </div><!-- /.box-header -->
           <div class="box-body no-padding">
@@ -115,8 +115,9 @@
               <ul class="todo-list">
                 @foreach($activity as $activity_by)
         @if($activity_by->activity_by == Auth::user()->email || Auth::user()->username)
-                    <li>                     
-                      <small>{{ $activity_by->activity }}
+                    <li>  
+                    {{ $activity_by->activity }}                   
+                      <small class="label label-primary">
                       <i class="fa fa-clock-o"></i>
            <b>{{ date('F d, Y', strtotime($activity_by->created_at )) }}</b></small>
                       </li>
@@ -316,7 +317,7 @@
     <div class="box-footer">
       <form action = "/update/8" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
-        <div class="form-group pull-right">               
+        <div class="form-group">               
           <div class="input-group">
             <input type="hidden" name="comment_by" value="{{ Auth::user()->email }}">
             <input type="hidden" name="activity" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} Forward this file: {{ substr($user->fold_name, 3) }} to ">
@@ -327,14 +328,13 @@
               <input id="" class="form-control" name="share-input" placeholder="Recipient Email...">
             </div> --}}
 
-            <div class="form-group pmd-textfield pmd-textfield-floating-label">
-             <label>Enter Recipient Email:</label>        
-             <select id="forward_to_user" class="select-with-search form-control pmd-select2" name="share-input" placeholder="Recipient Email..."></select>
-           </div> 
-              <div class="input-group-btn">
+              
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                  <select id="forward_to_user" class="select-with-search form-control pmd-select2" name="share-input" placeholder="Recipient Email..."></select>
+                </div>
+              <div class="input-group-btn ">
                 <button id='forwardBtn' class="btn btn-success"><i class="fa fa-share"></i> Forward</button>
               </div>
-                
           </div>                   
         </div>
       </form>
@@ -355,10 +355,11 @@
               <ul class="todo-list">
                 @foreach($activity as $folder_id)
         @if($folder_id->folder_id == $user->id)
-                    <li>                     
-                      <small>{{ $folder_id->activity }} 
+                    <li> 
+                    {{ $folder_id->activity }}                    
+                      <small class="label label-info"> 
                       <i class="fa fa-clock-o"></i>
-           <b>{{ $folder_id->created_at }}</b></small>
+           <b>{{ date('F d, Y', strtotime( $folder_id->created_at )) }}</b></small>
                       </li>             
             @endif
         @endforeach
