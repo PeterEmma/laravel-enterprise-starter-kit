@@ -3,12 +3,15 @@
 /vendor/
 .env
 .env~
-storage/
+storage/app/
+storage/debugbar/
+storage/framework/
+storage/logs/
 
 # Package development #
 #######################
 /app/Modules/
-/public/vendor/
+#/public/vendor/
 
 # Configuration testing #
 #########################
