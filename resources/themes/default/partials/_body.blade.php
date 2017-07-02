@@ -95,9 +95,6 @@ desired effect
              {{ csrf_field() }}
              <div class="box-body">
                <div class="form-group">
-                 <input type="hidden" class="form-control" id="request_from" value="{{ Auth::user()->email }}" name="request_from" placeholder="Request From: {{ Auth::user()->email }}"/>
-               </div>
-               <div class="form-group">
                  <input type="text" class="form-control" id="foldername" name="foldername" placeholder="File No/ Name"/>
                </div>
                <div>

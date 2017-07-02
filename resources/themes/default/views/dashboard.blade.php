@@ -150,7 +150,7 @@
               <div class="mailbox-read-message">        
                 
             
-                <object data="/docs/files/1/{{ $user->fold_name }}/{{ $user->latest_doc }}" type="application/pdf" width="600" height="450">
+                <object data="/docs/files/1/{{ $user->fold_name }}/{{ $user->latest_doc }}" type="application/pdf" style="width: 100%" height="450">
                   <!-- support older browsers -->
                   <!-- <embed src="uploads/C_TAW12_731.pdf" type="application/pdf" width="900" height="500"/> -->
                   <!-- For those without native support, no pdf plugin, or no js -->
@@ -346,7 +346,6 @@
       </div><!-- /.col md-->
     
     <div class='col-md-3'>
-   
           <div id="activity-timeline" class="box box-primary">
             <div class="box-header">
               <i class="fa fa-folder-open-o"></i>

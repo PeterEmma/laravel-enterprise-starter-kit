@@ -30,7 +30,7 @@ class ItemsController extends LfmController
         $count = '';
         
         if($show_list === "2"){
-            $folders =DB::table('folders')->where('fold_name', 'like', $keyword)->get();
+            $folders =DB::table('folders')->where('folder_search', 'like', $keyword)->get();
             //$count = DB::select('select * from folders where fold_name like ? ', [$keyword])->count();
             $count = count($folders);
         }
