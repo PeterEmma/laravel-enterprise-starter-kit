@@ -260,7 +260,7 @@ class FilesController extends Controller {
 	public function requestform(){
 
 		$user = new folder_request;
-		$user->request_from= Input::get('request_from');
+		$user->request_from= Auth::user()->email;
 		$user->foldername= Input::get('foldername');
 		$user->desc= Input::get('desc');
 		$user->save();

@@ -2,10 +2,6 @@
 
 @section('head_extra')
     <!-- jVectorMap 1.2.2 -->
-                      <script type="text/javascript" src="file-upload/scripts/jquery.min.js"></script>
-                      <script type="text/javascript" src="file-upload/scripts/jquery.form.js"></script>
-                      <script type="text/javascript" src="file-upload/scripts/upload.js"></script>
-                      <link type="text/css" rel="stylesheet" href="file-upload/style.css" />
 
 
     <link href="{{ asset("/bower_components/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css") }}" rel="stylesheet" type="text/css" />
