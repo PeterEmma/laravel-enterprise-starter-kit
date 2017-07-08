@@ -66,7 +66,7 @@
 
   <script type="text/javascript" src="{{ asset("bower_components/admin-lte/plugins/moment/moment.min.js") }}"></script>
   
-    <div class='row pull right'>
+    <div class='row pull-left'>
   
       <div class='col-md-3 pull-left'>
           <!-- USERS LIST -->
@@ -80,27 +80,27 @@
                {{--@endunless --}}
               <div class="box-tools pull-right">
                   {{-- auto fetch the users in the department--}}
-                  <span class="label label-primary">15 users online</span>
+                  <span class="label label-primary"><label id='users_online'>15</label>users online</span> {{-- The span is to be auto generated --}}
                   <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                  <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  {{-- <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> --}}
               </div>
           </div><!-- /.box-header -->
           <div class="box-body no-padding">
             <ul class="users-list clearfix">
               @foreach($users as $user)
-        @if($user->department == Auth::user()->department)
-                <li>
-        {{--<img src="{{ Gravatar::get($user->email) }}" class="user-image" alt="User Image"/> --}}
-           <img src="img/profile_picture/photo/{{ $user->avatar }}" class="offline" style="width: 52px; height: 52px; top: 10px; left: 10px; border-radius: 50%;" alt="User Image"/>
+                @if($user->department == Auth::user()->department)
+                  <li>
+                    {{--<img src="{{ Gravatar::get($user->email) }}" class="user-image" alt="User Image"/> --}}
+                    <img src="img/profile_picture/photo/{{ $user->avatar }}" class="offline" style="width: 52px; height: 52px; top: 10px; left: 10px; border-radius: 50%;" alt="User Image"/>
                     <a class="users-list-name" href="">{!! link_to_route('admin.users.show', $user->full_name, [$user->id], []) !!}</a>
                     {{-- <span class="users-list-date">{{ $user->created_at }}</span> --}}
-                </li>
-        @endif
+                  </li>
+                @endif
               @endforeach
             </ul><!-- /.users-list -->
           </div><!-- /.box-body -->
           <div class="box-footer text-center">
-              <a href="javascript::" class="uppercase">View All Users</a>
+              <a href="javascript::viewall" class="uppercase">View All Users</a>
           </div><!-- /.box-footer -->
         </div>
         <!-- BROWSER USAGE -->
@@ -108,34 +108,36 @@
           <div id="activity-timeline" class="box box-primary">
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
-              <h3 class="box-title">MyActivity Timeline</h3>
+              <h3 class="box-title">Activity Timeline</h3>
             </div><!-- /.box-header -->
             <div class="box-body">
               <ul class="todo-list">
                 @foreach($activity as $activity_by)
-        @if($activity_by->activity_by == Auth::user()->email || Auth::user()->username)
-                    <li>                     
-                      <small>{{ $activity_by->activity }}
-                      <i class="fa fa-clock-o"></i>
-           <b>{{ date('F d, Y', strtotime($activity_by->created_at )) }}</b></small>
-                      </li>
-                      
-               @endif
-        @endforeach
+                  @if($activity_by->activity_by == Auth::user()->email || Auth::user()->username)
+                  <li>                     
+                    <small>{{ $activity_by->activity }}
+                    <i class="fa fa-clock-o"></i>
+                    <b>{{ date('F d, Y', strtotime($activity_by->created_at )) }}</b></small>
+                  </li>           
+                  @endif
+                @endforeach
               </ul>
-               <div class="box-footer text-center">
-                  <a href="viewall" class="uppercase">View All Activity</a>
-                </div><!-- /.box-footer -->
+              <div class="box-footer text-center">
+                <a href="viewall" class="uppercase">View All Activity</a>
+              </div><!-- /.box-footer -->
             </div><!-- /.box-body -->
-            </div><!-- /.box -->        
+          </div><!-- /.box -->        
         </div><!-- /.col -->
+      {{-- </div> <!-- row -->
+
+    <div class='row pull-right'> --}}
     
     <?php $loopindex = 0; ?>
     
     @foreach($folder as $user)
 
       <?php $loopindex++; ?>
-      <div class="pull right">
+      <div class="pull-right">
         <div class='col-md-6'>
             <!-- SERVER HEALTH REPORT -->
             <!-- MAP & BOX PANE {{ substr($user->fold_name, 3) }} -->
@@ -147,8 +149,6 @@
               </div><!-- /.mailbox-read-info getFullNameAttribute()-->
              
               <div class="mailbox-read-message">        
-                
-            
                 <object data="/docs/files/1/{{ $user->fold_name }}/{{ $user->latest_doc }}" type="application/pdf" style="width: 100%" height="450">
                   <!-- support older browsers -->
                   <!-- <embed src="uploads/C_TAW12_731.pdf" type="application/pdf" width="900" height="500"/> -->
@@ -350,18 +350,19 @@
             <div class="box-header">
               <i class="fa fa-folder-open-o"></i>
               <h3 class="box-title">File Movement</h3>
+              <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-minus"></i></button>
             </div><!-- /.box-header -->
             <div class="box-body">
               <ul class="todo-list">
                 @foreach($activity as $folder_id)
-        @if($folder_id->folder_id == $user->id)
+                  @if($folder_id->folder_id == $user->id)
                     <li>                     
                       <small>{{ $folder_id->activity }} 
                       <i class="fa fa-clock-o"></i>
-           <b>{{ $folder_id->created_at }}</b></small>
+                      <b>{{ $folder_id->created_at }}</b></small>
                       </li>             
-            @endif
-        @endforeach
+                  @endif
+                @endforeach
               </ul>
             </div><!-- /.box-body -->
             </div><!-- /.box -->        

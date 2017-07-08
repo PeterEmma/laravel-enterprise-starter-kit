@@ -23,7 +23,7 @@ class Password extends Password {
      * @return string
      */
     
-   // cpnwaugha: c-e
+   // @cpnwaugha: c-e
     public function sendNewUserResetLink(array $credentials, Closure $callback = null, $view = null)
     {
         \Illuminate\Support\Facades\Password::sendResetLink($credentials, $callback, $view);
