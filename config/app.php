@@ -261,7 +261,7 @@ return [
     | Boolean flag that shows extended user menu boilerplate, defaults to true.
     | c-e: default: true
     */
-    'extended_user_menu' => env('app.extended_user_menu', false),
+    'extended_user_menu' => env('app.extended_user_menu', true),
 
     /*
     |--------------------------------------------------------------------------

@@ -290,6 +290,42 @@ class FilesController extends Controller {
 		return redirect()->back()->with('Request Sent');
 	}
 
+	public function ajaxFolderRequest()
+	{
+
+		$folder_req = new folder_request;
+		$folder_req->request_from= Auth::user()->email;
+		$folder_req->foldername= request('foldername');
+		$folder_req->desc= request('desc');
+		$folder_req->save();
+
+		$sender_id = Auth::user()->id;
+		$folder_request_id = DB::table('folders')->where('fold_name', 'like', '$user->foldername')->get();
+
+		if (!$folder_request_id){
+			$folder_request_id = 1;
+		}
+		else{
+
+			$temp_arr = array();
+
+			foreach($folder_request_id as $key => $value){
+				foreach($value as $field => $data){
+					$temp_arr[$field] = $data;
+				}
+			}
+			$folder_request_id = $temp_arr['id']; // count(folder_request_id);
+		}
+
+		RequestFileNotification::create(['folder_request_id'=>$folder_request_id, 'sender_id'=>$sender_id, 'receiver_roles'=> 2]);  
+
+		Flash::success('Your Request for File has been sent to Registry');
+		//return redirect()->back()->with('Request Sent');
+
+		$data = array('successmsg'=> 'Folder request Successfule', 'action'=> 'Registry Will treat your request duly');
+		return response()->json($data);
+	}
+
 
 	public function storepinform(){
 		if (Input::get('new_pin') == Input::get('confirmpin')){

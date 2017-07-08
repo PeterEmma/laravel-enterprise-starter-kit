@@ -24,8 +24,8 @@
                     </div><!-- /.col -->
                 @endif
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                </div><!-- /.col -->
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div><!-- /.col removed btn flat -->
             </div>
         </form>
 

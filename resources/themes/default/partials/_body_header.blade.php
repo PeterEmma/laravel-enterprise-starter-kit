@@ -44,13 +44,13 @@
 
                         <li class="">
                            <!-- Request File button -->
-                           <a href="#" class="btn btn-block btn-info" title="Request file" data-toggle="modal" data-target="#myModal">
+                           <a href="#" class="btn btn-block btn-info" title="Request file" data-toggle="modal" data-target="#requestFileModal">
                                <i id="" class="fa fa-file"></i>
                            </a>
                        </li>                        
                        <li class="">
                            <!-- Create Pin button -->
-                            <a href="#" class="btn btn-block btn-success" title="Create Pin" data-toggle="modal" data-target="#myModal2">
+                            <a href="#" class="btn btn-block btn-success" title="Create Pin" data-toggle="modal" data-target="#createPinModal">
                                <i class="fa fa-key"></i>
                            </a>
                        </li>
@@ -103,7 +103,7 @@
                             <li class="dropdown notifications-menu">
                                 <!-- Menu toggle button -->
                                 <a href="#" id="request_file_toggle" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                                    <i class="fa fa-bell-o"></i>
                                     <span id='request_file_notif' class="label label-warning"></span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -150,8 +150,8 @@
                                                     </a>
                                                 </li>                                                 
                                             @endif
-                                        @endforeach                                                                          
-                                        
+                                        @endforeach
+                                                            
                                     </ul>
                                 </li>
                                 <li class="footer">

@@ -78,8 +78,14 @@ desired effect
         </div>
     </div>
 
+    <div id="alertdiv" class="alert alert-info" hidden>
+		<a href="#" class="close" data-dismiss="alert">&times;</a> 
+		<label id="alertdivlabel"></label>
+        <span id="alertdivmsg"></span>
+	</div>
+
     <!-- Request file modal-->
-   <div class="modal fade" id="myModal" role="dialog">
+   <div class="modal fade" id="requestFileModal" role="dialog">
    <div class="modal-dialog">
      <!-- Modal content-->
      <div class="modal-content">         
@@ -91,26 +97,29 @@ desired effect
            <div class="pull-right box-tools">
              <button class="btn btn-info btn-sm" data-dismiss="modal" title="Remove"><i class="fa fa-times"></i></button>
            </div><!-- /. tools -->
-         </div>          <form method="post" id="request_form" action="requestform">
+         </div>          
+         <form method="post" id="request_form" action="requestform">
+
              {{ csrf_field() }}
              <div class="box-body">
                <div class="form-group">
                  <input type="text" class="form-control" id="foldername" name="foldername" placeholder="File No/ Name"/>
                </div>
                <div>
-                 <textarea class="textarea" name="desc" id="desc" placeholder="Full Description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd
-; padding: 10px;"></textarea>
+                 <textarea class="textarea" name="desc" id="desc" placeholder="Full Description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                </div>
            </div>
            <div class="box-footer clearfix">
-             <button class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+             <button id="requestFileBtn" class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
            </div>
          </form>        
          </div>
      </div>
    </div>
- </div><!-- Create pin modal-->
-<div class="modal fade" id="myModal2" role="dialog">
+ </div>
+ 
+ <!-- Create pin modal-->
+<div class="modal fade" id="createPinModal" role="dialog">
    <div class="modal-dialog" style="width: 400px;">
    
      <!-- Modal content-->
@@ -134,7 +143,7 @@ desired effect
             </div>
         </div>
         <div class="box-footer clearfix">
-            <button class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+            <button id="createPinBtn" class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
         </div>
        </form>             
        </div>    

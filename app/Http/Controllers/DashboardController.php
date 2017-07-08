@@ -67,8 +67,8 @@ class DashboardController extends Controller
     {
         Audit::log(Auth::user()->id, trans('admin/users/general.audit-log.category'), trans('admin/users/general.audit-log.msg-index'));
 
-        $page_title = trans('admin/users/general.page.index.title'); // "Admin | Users";
-        $page_description = trans('admin/users/general.page.index.description'); // "List of users";
+        $page_title = "Users | Dashboard"; // trans('admin/users/general.page.index.title'); // "Admin | Users";
+        $page_description = "Your Desk"; // trans('admin/users/general.page.index.description'); // "List of users";
 
         $users = $this->user->pushCriteria(new UsersWithRoles())->pushCriteria(new UsersByUsernamesAscending())->paginate(10);
 		$user_id = Auth::user()->email;

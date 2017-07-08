@@ -6,6 +6,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ Setting::get('app.short_name') }} | {{ $page_title or "Page Title" }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -14,7 +15,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    {{-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons"> --}}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset("/bower_components/admin-lte/material-design-icons/iconfont/material-icons.css") }}">
 
     <!-- Bootstrap 3.3.4 -->
     <link href="{{ asset("/bower_components/admin-lte/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
@@ -49,8 +52,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Propeller text fields -->
     <link rel="stylesheet" href="{{ asset("/bower_components/admin-lte/plugins/propellerkit/components/textfield/css/textfield.css") }}"  >
     <!-- Propeller select2 -->
-    <link rel="stylesheet" href="{{ asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/css/pmd-select2.css") }}" >
+    {{-- <link rel="stylesheet" href="{{ asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/css/pmd-select2.css") }}" > --}}
+    <!-- AdminLTE select2 -->
+    <link rel="stylesheet" href="{{ asset("/bower_components/admin-lte/select2/dist/css/select2.min.css") }}" >
 
+    <!-- MUI -->
+    <link href="{{ asset("/bower_components/admin-lte/mui/css/mui.min.css") }}" rel="stylesheet" type="text/css" />
+
+
+    <script src="{{ asset("/bower_components/admin-lte/mui/js/mui.min.js") }}"></script>
 
     
     <!-- Head -->
@@ -71,10 +81,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <!-- Additional jQuery here. Note that some more jQuery for layout designs are in patials._body.blade.php-->
 
-      <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/textfield/js/textfield.js")}}"></script>
+      {{-- <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/textfield/js/textfield.js")}}"></script>
       <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/js/select2.full.js")}}"  ></script>
       <script src="{{asset("/js/custom.js")}}"></script>
-      <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/js/pmd-select2.js")}}"></script>
+      <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/js/pmd-select2.js")}}"></script> --}}
+
+      <!-- AdminLTE Select2 -->
+      <script src="{{asset("/bower_components/admin-lte/select2/dist/js/select2.full.min.js")}}"></script>
       
 
 

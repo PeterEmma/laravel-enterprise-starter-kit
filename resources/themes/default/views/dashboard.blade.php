@@ -34,7 +34,6 @@
 
     $( function() {
      var availableTags = [
-        "Select Recipients",
          @foreach($users as $user)  
             "{{ $user->first_name }}, {{ $user->last_name }}",
          @endforeach
@@ -45,7 +44,7 @@
       //availableTags.splice(0, 0,'Select Recipient');
 
       $(".js-parents").select2();
-      $("#forward_to_user").select2({
+      $(".select-with-search").select2({
         theme: "bootstrap",
         placeholder: "Select Recipient",
         //minimumInputLength: 3,
@@ -69,7 +68,7 @@
   
     <div class='row pull right'>
   
-        <div class='col-md-3 pull-left'>
+      <div class='col-md-3 pull-left'>
           <!-- USERS LIST -->
         <div class="box box-primary">
           <div class="box-header with-border">
@@ -237,19 +236,20 @@
               headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
             });
     
-            $(document).on('click', 'button.commentrefresh', function(e){
+            $(document).on('click', "button#submitPostBtn{{$loopindex}}", function(e){
               e.preventDefault();
               e.stopPropagation();
 
-              var folder_id = $('#folder_id').val();
-              var comment_by= $('#comment_by').val();
-              var activity  = $('#activity').val();
-              var comment   = $('#comment').val();
-              var data = {comment: comment, comment_by: comment_by, folder_id: folder_id, activity: activity, '_token': $('input[name=_token]').val()};
+              var folder_id = $("#folder_id{{$loopindex}}").val();
+              var comment_by= $("#comment_by{{$loopindex}}").val();
+              var activity  = $("#activity{{$loopindex}}").val();
+              var comment   = $("#comment{{$loopindex}}").val();
+              var formData  = $("#commentForm{{$loopindex}}").serialize();
+              var data = formData; // {comment: comment, comment_by: comment_by, folder_id: folder_id, activity: activity, '_token': $('input[name=_token]').val()};
 
-              $('#comment').val('');
+              $("#comment{{$loopindex}}").val('');
 
-              created_at = moment().startOf('hour').fromNow();  // an hour ago
+              created_at = moment().format('ll'); //moment().startOf('hour').fromNow();  // an hour ago
                     
               var renderComment = `
                 <div class="item">
@@ -297,26 +297,27 @@
       </div> <!-- end div chat-box -->
 
 		<!-- Form to receive user's comment.-->
-		<form action="comment" id="commentForm" class='commentFormClass' method="post" enctype="multipart/form-data">
-		  <input type="hidden" id="comment_by" name="comment_by" value="{{ Auth::user()->email }}">
-		  <input type="hidden" id="folder_id" name="folder_id" value="{{ $user->id }}">
-		  <input type="hidden" id="activity" name="activity" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} Comment on {{ substr($user->fold_name, 3) }}">
+		<form action="comment" id="commentForm{{$loopindex}}" class='commentFormClass' method="post" enctype="multipart/form-data">
+		  <input type="hidden" id="comment_by{{$loopindex}}" name="comment_by" value="{{ Auth::user()->email }}">
+		  <input type="hidden" id="folder_id{{$loopindex}}" name="folder_id" value="{{ $user->id }}">
+		  <input type="hidden" id="activity{{$loopindex}}" name="activity" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} Comment on {{ substr($user->fold_name, 3) }}">
 		  <input type="hidden" name="_token" value="{{ csrf_token() }}">
 		  <div class="box-footer">
 			<div class="input-group">
-			  <input class="form-control" id="comment" name="comment" placeholder="Type message..."/>
+			  <input class="form-control" id="comment{{$loopindex}}" name="comment" placeholder="Type message..."/>
 			  <div class="input-group-btn">
-				<button id="submitPostBtn" class="btn btn-primary commentrefresh"><i class="fa fa-plus"> Post</i></button>
+				  <button id="submitPostBtn{{$loopindex}}" class="btn btn-primary commentrefresh"><i class="fa fa-plus"> Post</i></button>
 			  </div>
 			</div>
 		  </div>
 		</form>
 
-        
+    
     <div class="box-footer">
       <form action = "/update/8" method = "post">
         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
-        <div class="form-group pull-right">               
+        <div class="form-group">
+           <label><b>Enter Recipient Email:</b></label>               
           <div class="input-group">
             <input type="hidden" name="comment_by" value="{{ Auth::user()->email }}">
             <input type="hidden" name="activity" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} Forward this file: {{ substr($user->fold_name, 3) }} to ">
@@ -327,8 +328,7 @@
               <input id="" class="form-control" name="share-input" placeholder="Recipient Email...">
             </div> --}}
 
-            <div class="form-group pmd-textfield pmd-textfield-floating-label">
-             <label>Enter Recipient Email:</label>        
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">       
              <select id="forward_to_user" class="select-with-search form-control pmd-select2" name="share-input" placeholder="Recipient Email..."></select>
            </div> 
               <div class="input-group-btn">

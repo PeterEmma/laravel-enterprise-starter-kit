@@ -36,7 +36,7 @@
                success:function(returnData)
                {
                    var notif_count = returnData.notif_count;
-                   $('#folder_notif').html(notif_count);
+                   
                    //console.log('Working, data.count is: '+ notif_count);
 
                    if(notif_count === 0){
@@ -45,18 +45,17 @@
                        temp_fn = 0;
                    }
                    else{
+                       $('#folder_notif').html(notif_count);
                        $('#folder_notif').addClass('label-danger');
                        $('#folder_notif_icon').removeClass('fa-folder-o').addClass('fa-folder-open-o');
 
                        // call notification
                        count = notif_count;
-                       if (notif_count > temp){
+                       if (notif_count > temp_fn){
                             desktopNotification(event='New File', message = 'New shared folder on Desk', count);
                             temp_fn = notif_count;
                        }
-                       
                    }
-                   
                },
                error:function(){
                    console.log('error connecting to fetch folder notification');
@@ -70,8 +69,7 @@
                success:function(returnData)
                {
                    var memo_count = returnData.memo_count;
-                   $('#memo_notif').html(memo_count);
-                   $('#inbox_left').html(memo_count);
+                   
                    // console.log('Working, data.count is: '+ memo_count);
                    if(memo_count === 0){
                        $('#memo_notif').removeClass('label-success');
@@ -79,18 +77,18 @@
                        temp_mn = 0;
                    }
                    else{
+                       $('#memo_notif').html(memo_count);
+                       $('#inbox_left').html(memo_count);
                        $('#memo_notif').addClass('label-success');
                        $('#inbox_left').addClass('label-primary');
 
                        // call notification
                        count = memo_count;
-                       if (memo_count > temp){
+                       if (memo_count > temp_mn){
                             desktopNotification(event='Memo shared', message = 'New memo received', count);
                             temp_mn = memo_count;
                        }
                    }
-
-                   // call notification
                    
                },
                error:function(){
@@ -105,7 +103,7 @@
                success:function(returnData)
                {
                    var file_request_count = returnData.file_request_count;
-                   $('#request_file_notif').html(file_request_count);
+                   
                    //console.log('Working, data.count is: '+ notif_count);
 
                    if(file_request_count === 0){
@@ -114,12 +112,13 @@
                        temp_rfn = 0;
                    }
                    else{
+                       $('#request_file_notif').html(file_request_count);
                        $('#request_file_notif').addClass('label-warning');
                        $('#request_file_notif').removeClass('fa-bell-slash-o').addClass('fa-bell-o');
 
                        // call notification
                        count = file_request_count;
-                       if (file_request_count > temp){
+                       if (file_request_count > temp_rfn){
                             desktopNotification(event='File Request', message = 'New File Request', count);
                             temp_rfn = file_request_count;
                        }
@@ -205,7 +204,48 @@
                     loaderBg: '#9EC600'  // To change the background
                 });
            }
-            
        }
+
+       //Ajax call.
+       // hide requestFileModal
+       $('#requestFileBtn').on('click', function(e){
+
+            e.preventDefault();
+            e.stopPropagation();
+            $('#requestFileModal').modal('hide');
+
+            var foldername = $('#foldername').val();
+            var desc = $('#desc').val();
+            var data = {foldername: foldername, desc: desc, '_token': $('input[name=_token]').val()};
+
+            $.ajax({
+               url:"ajaxfolderrequest",
+               method:"POST",
+               dataType:"json",
+               data: data,
+               success:function(returnData)
+               {
+                   console.log(returnData);
+                   $('#alertdivlabel').html(returnData.successmsg);
+                   $('#alertdivmsg').html(returnData.action);
+                   console.log('success, connecting to folder request controller ');
+               },
+               error:function(){
+                   console.log('error, connecting to folder request controller ');
+               }
+           });
+
+            $('#alertdiv').show().animate({
+                left: '380px',
+                top: '200px',
+                width: '400px',
+                height: '60px',
+                opacity: 1
+            }).fadeOut(3000);
+       });
+
+       $('#createPinBtn').on('click', function(){
+            $('#createPinModal').modal('hide');
+       });
    })
 </script>

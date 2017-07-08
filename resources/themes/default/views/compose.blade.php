@@ -11,18 +11,17 @@
     <script>
         $( function() {
           var availableTags = [
-        
+
           @foreach($users as $user)   
           "{{ $user->first_name}}, {{$user->last_name}}",
           @endforeach
            ""];
 
-           availableTags.splice(0,0,' ');
+           // availableTags.splice(0,0,' ');
           
-          $(".select-add-tags").select2({
+          $(".select2").select2({
             data: availableTags,
             tags:false,
-            theme: "bootstrap",
             minimumResultsForSearch: Infinity,
           });
         });
@@ -72,9 +71,9 @@
 			<input type="hidden" name="email_name" value="{{ Auth::user()->email }} {{ Auth::user()->last_name }}">
 			<input type="hidden" name="emailfrom" value="{{ Auth::user()->email }}">
 
-            <div class="form-group pmd-textfield pmd-textfield-floating-label"> 
+            <div class="form-group"> 
                 <label>To:</label>      
-              <select id="forward_to_user" class="select-add-tags form-control pmd-select2-tags" name="emailto[]" multiple="multiple" placeholder="Recipient Email..."></select>
+              <select id="forward_to_user" class="form-control select2" name="emailto[]" multiple="multiple" placeholder="Recipient Email..."></select>
             </div>
 
               <!--<div class="form-group">
