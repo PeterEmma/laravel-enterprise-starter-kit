@@ -108,13 +108,13 @@
 
                    if(file_request_count === 0){
                        $('#request_file_notif').removeClass('label-warning');
-                       $('#request_file_notif').removeClass('fa-bell-o').addClass('fa-bell-slash-o');
+                       $('#request_file_notif_icon').removeClass('fa-bell-o').addClass('fa-bell-slash-o');
                        temp_rfn = 0;
                    }
                    else{
                        $('#request_file_notif').html(file_request_count);
                        $('#request_file_notif').addClass('label-warning');
-                       $('#request_file_notif').removeClass('fa-bell-slash-o').addClass('fa-bell-o');
+                       $('#request_file_notif_icon').removeClass('fa-bell-slash-o').addClass('fa-bell-o');
 
                        // call notification
                        count = file_request_count;

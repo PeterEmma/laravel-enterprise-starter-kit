@@ -78,6 +78,7 @@ class DashboardController extends Controller
 		//$folder = Folder::all();	
 		$activity = DB::select('select * from activities where activity like ? order by created_at desc limit 5', [$activity]);
 
+
 		$folder = DB::select('select * from folders where folder_to = ?',[$user_id]);
 		$file = DB::select('select * from documents');
 		$comments = DB::select('select * from comments');
@@ -165,6 +166,29 @@ class DashboardController extends Controller
 		$activity = DB::table('activities')->where('activity_by', $user_id)->orderBy('created_at', 'DESC')->paginate(12);
         return view('viewall', compact('users', 'page_title', 'page_description', 'activity', 'folderactivity'));
     }
+
+	public function viewallrequest()
+    {
+        Audit::log(Auth::user()->id, trans('admin/users/general.audit-log.category'), trans('admin/users/general.audit-log.msg-index'));
+
+        $page_title = trans('admin/users/general.page.index.title'); // "Admin | Users";
+        $page_description = trans('admin/users/general.page.index.description'); // "List of users";
+
+        $users = $this->user->pushCriteria(new UsersWithRoles())->pushCriteria(new UsersByUsernamesAscending())->paginate(10);
+		$user_id = Auth::user()->email;
+		$user_id2 = 'root';
+		
+		$act = '%Forward%';
+		
+		//$folder = Folder::all();	
+		$folderactivity = DB::table('activities')->where('activity', 'like', $act)->orderBy('created_at', 'DESC')->paginate(5);
+		$folder_requests = DB::table('folder_requests')->orderBy('created_at', 'DESC')->paginate(20);
+		$labels = array('label-warning', 'label-info');
+		//$folder = Folder::all();	
+		$activity = DB::table('activities')->where('activity_by', $user_id)->orderBy('created_at', 'DESC')->paginate(12);
+        return view('viewallrequest', compact('users', 'page_title', 'page_description', 'activity', 'folderactivity','folder_requests','labels'));
+    }
+
 	
 	
 	public function store_session()

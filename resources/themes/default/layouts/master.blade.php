@@ -62,6 +62,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script src="{{ asset("/bower_components/admin-lte/mui/js/mui.min.js") }}"></script>
 
+    <link rel="stylesheet" href="{{ asset("/bower_components/admin-lte/plugins/propellerkit/components/select2/css/pmd-select2.css") }}" >
+    <link rel="stylesheet" type="text/css" href="{{asset('/bower_components/admin-lte/plugins/datatables/jquery.dataTables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/bower_components/admin-lte/plugins/datatables/material.min.css') }}"> 
+    <link rel="stylesheet" type="text/css" href="{{asset('/bower_components/admin-lte/plugins/datatables/dataTables.material.min.css') }}">  
+  
     
     <!-- Head -->
     @include('partials._head')
@@ -79,6 +84,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- @cpnwaugha jQuery Toast -->
       <script src="{{ asset ("/bower_components/admin-lte/dist/js/jquery.toast.js") }}" type="text/javascript"></script>
 
+      
+
+      
       <!-- Additional jQuery here. Note that some more jQuery for layout designs are in patials._body.blade.php-->
 
       {{-- <script src="{{asset("/bower_components/admin-lte/plugins/propellerkit/components/textfield/js/textfield.js")}}"></script>
@@ -88,8 +96,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <!-- AdminLTE Select2 -->
       <script src="{{asset("/bower_components/admin-lte/select2/dist/js/select2.full.min.js")}}"></script>
-      
 
+      <script type="text/javascript" src="{{ asset('/bower_components/admin-lte/plugins/datatables/jquery.dataTables.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('/bower_components/admin-lte/plugins/datatables/dataTables.material.min.js') }}"></script>
 
       <!-- Optionally, you can add Slimscroll and FastClick plugins.
             Both of these plugins are recommended to enhance the

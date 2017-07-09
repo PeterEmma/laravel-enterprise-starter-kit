@@ -12,13 +12,14 @@
         $( function() {
           var availableTags = [
 
-          @foreach($users as $user)   
-          "{{ $user->first_name}}, {{$user->last_name}}",
-          @endforeach
-           ""];
+            @foreach($users as $user)   
+            "{{ $user->first_name}}, {{$user->last_name}}",
+            @endforeach
+            
+            ""
+           ];
 
            // availableTags.splice(0,0,' ');
-          
           $(".select2").select2({
             data: availableTags,
             tags:false,

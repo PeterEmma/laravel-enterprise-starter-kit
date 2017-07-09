@@ -110,7 +110,7 @@ desired effect
                </div>
            </div>
            <div class="box-footer clearfix">
-             <button id="requestFileBtn" class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
+             <button id='requestFileBtn' class="pull-right btn btn-default" name="post" id="post">Send <i class="fa fa-arrow-circle-right"></i></button>
            </div>
          </form>        
          </div>

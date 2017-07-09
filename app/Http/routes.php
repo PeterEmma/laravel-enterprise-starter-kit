@@ -17,6 +17,8 @@ Route::post('comment', 'FilesController@comment');
 Route::get('commentrefresh', ['as' => 'commentrefresh', 'uses' => 'DashboardController@commentRefresh']);
 Route::get('ajaxcomment', ['as' => 'ajaxcomment', 'uses' => 'FilesController@ajaxComment']);
 
+Route::get('dataphp', ['as' => 'dataphp', 'uses' => 'MemoController@dataphp']);
+
 Route::get('show-message/{id}','FilesController@show_message');
 Route::post('edit/{id}','FilesController@edit');
 Route::get('edit-records','FilesController@index');
@@ -81,6 +83,7 @@ Route::group(['middleware' => 'authorize'], function () {
 	Route::get(   'session',      ['as' => 'session',          'uses' => 'DashboardController@session']);
 	Route::post(   'store',      ['as' => 'store',          'uses' => 'DashboardController@store']);
     Route::get(   'viewall',      ['as' => 'viewall',          'uses' => 'DashboardController@viewall']);
+    Route::get(   'viewallrequest',      ['as' => 'viewallrequest',          'uses' => 'DashboardController@viewallrequest']);
 	Route::post(   'store-session',      ['as' => 'store-session',          'uses' => 'DashboardController@store_session']);
 	Route::post(   'store_memo',      ['as' => 'store_memo',          'uses' => 'DashboardController@store_memo']);
     Route::get(   'user/profile',   ['as' => 'user.profile',       'uses' => 'UsersController@profile']);

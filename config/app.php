@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'time_format' => env('app.time_format', '24'),
+    'time_format' => env('app.time_format', '12'),
 
 
 
